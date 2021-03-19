@@ -73,6 +73,12 @@ dependencies {
     implementation('com.squareup.retrofit2:retrofit:2.9.0')
     implementation('com.squareup.retrofit2:converter-moshi:2.7.2')
 
+    // Circle Image View
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // View Pager 2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
     // Moshi
 //    implementation('com.squareup.moshi:moshi-kotlin:1.11.0')
 //    implementation('com.squareup.moshi:moshi-kotlin-codegen:1.11.0')

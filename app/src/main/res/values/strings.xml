@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">CineWatch</string>
     <string name="splash_image">Splash Image</string>
+    <string name="movie_image">Movie Image</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="view_all">View All</string>
+    <string name="popular">Popular</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="search_button">Search Button</string>
 </resources>
