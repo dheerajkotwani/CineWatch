@@ -73,7 +73,7 @@ dependencies {
     // Retrofit
     implementation('com.squareup.retrofit2:retrofit:2.9.0')
     implementation('com.squareup.retrofit2:converter-moshi:2.7.2')
-
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     // Circle Image View
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
@@ -90,6 +90,9 @@ dependencies {
     implementation  "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

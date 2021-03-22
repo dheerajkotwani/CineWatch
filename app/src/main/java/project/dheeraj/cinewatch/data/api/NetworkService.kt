@@ -1,10 +1,18 @@
 package project.dheeraj.cinewatch.data.api
 
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.json.JSONObject
 import project.dheeraj.cinewatch.data.model.Actor
 import project.dheeraj.cinewatch.data.model.Movie
+import project.dheeraj.cinewatch.data.model.MovieResponse
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Created by Dheeraj Kotwani on 20-03-2021.
@@ -27,7 +35,9 @@ interface NetworkService {
     ): Response<Actor>
 
     @GET("movie/popular")
-    suspend fun getPopularMovies(): Response<List<Movie>>
+    suspend fun getPopularMovies(
+            @Query ("api_key") apiKey : String
+    ): Response<MovieResponse>
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(): Response<List<Movie>>
@@ -42,6 +52,17 @@ interface NetworkService {
 
     companion object {
         const val API_URL = "https://api.themoviedb.org/3/";
+
+        operator fun invoke() : NetworkService {
+
+            return Retrofit.Builder()
+                    .baseUrl(API_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(NetworkService::class.java)
+
+        }
+
     }
 
 }
