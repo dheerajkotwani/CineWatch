@@ -22,47 +22,47 @@ class MainViewModel : ViewModel() {
     private val repository = NetworkRepository()
 
     fun loadUpcoming() = liveData(Dispatchers.IO) {
-        emit(State.loading())
+        emit(Resource.loading())
         try {
             // Fetch data from remote
-            val apiResponse = repository.getPopularMovie()
+            val apiResponse = repository.getUpcomingMovie()
 //            e(apiResponse)
-            emit(State.success(apiResponse))
+            emit(Resource.success(apiResponse))
         } catch (e: Exception) {
             if (e is SocketTimeoutException)
-                emit(State.error("Something went wrong!"))
+                emit(Resource.error("Something went wrong!"))
         }
     }
 
     fun loadPopular() = liveData(Dispatchers.IO) {
-//        emit(Resource.loading())
-//        try {
+        emit(Resource.loading())
+        try {
             e("try Request")
             // Fetch data from remote
             val apiResponse = repository.getPopularMovie()
             e(apiResponse.toString())
 
             emit(Resource.success(apiResponse))
-//        } catch (e: Exception) {
-//            e(e.message)
-//
-//            if (e is SocketTimeoutException)
-//                emit(Resource.error("Something went wrong!"))
-//        }
+        } catch (e: Exception) {
+            e(e)
+
+            if (e is SocketTimeoutException)
+                emit(Resource.error("Something went wrong!"))
+        }
     }
 
     fun loadTopRated() = liveData(Dispatchers.IO) {
-        emit(State.loading())
+        emit(Resource.loading())
         try {
             // Fetch data from remote
-//            val apiResponse = fetchFromRemote()
+            val apiResponse = repository.getTopRatedMovie()
 
             // Parse Body
 //            val remoteData = apiResponse.body()
-            emit(State.success("data"))
+            emit(Resource.success(apiResponse))
         } catch (e: Exception) {
             if (e is SocketTimeoutException)
-                emit(State.error("Something went wrong!"))
+                emit(Resource.error("Something went wrong!"))
         }
     }
 
