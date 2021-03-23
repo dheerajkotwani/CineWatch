@@ -7,4 +7,8 @@
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
     <string name="search_button">Search Button</string>
+    <string name="banner_image">banner image</string>
+    <string name="description">Description</string>
+    <string name="genres">Genres</string>
+    <string name="cast">Cast</string>
 </resources>

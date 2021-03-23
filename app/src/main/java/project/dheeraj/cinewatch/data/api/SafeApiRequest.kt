@@ -14,7 +14,6 @@ abstract class SafeApiRequest {
         e("Api Request")
         val response = call.invoke()
 
-        e(response.message())
         if (response.isSuccessful && response.body() != null) {
             e(response.body().toString())
             return response.body()!!

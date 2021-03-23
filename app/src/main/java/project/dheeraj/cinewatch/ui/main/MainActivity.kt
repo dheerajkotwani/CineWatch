@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,6 +14,7 @@ import project.dheeraj.cinewatch.databinding.ActivityMainBinding
 import project.dheeraj.cinewatch.ui.main.adapter.HomeRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.main.viewholder.MainViewModel
 import project.dheeraj.cinewatch.utils.showToast
+import timber.log.Timber.e
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -53,7 +55,6 @@ class MainActivity : AppCompatActivity() {
                 Status.SUCCESS -> {
                     upcomingMovieList.addAll(res.data!!.results)
                     upcomingAdapter.notifyDataSetChanged()
-                    showToast(res.status.toString())
                 }
                 Status.ERROR -> {
                     showToast(res.msg.toString())
@@ -64,12 +65,12 @@ class MainActivity : AppCompatActivity() {
         viewModel.loadPopular().observe(this, Observer { res ->
             when(res.status) {
                 Status.LOADING -> {
-                    showToast("Loading")
+//                    showToast("Loading")
                 }
                 Status.SUCCESS -> {
+                    Log.e("Result", res.data!!.results[0].backdrop_path.toString())
                     popularMovieList.addAll(res.data!!.results)
                     popularAdapter.notifyDataSetChanged()
-                    showToast(res.status.toString())
                 }
                 Status.ERROR -> {
                     showToast(res.msg.toString())
@@ -80,12 +81,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.loadTopRated().observe(this, Observer { res ->
             when(res.status) {
                 Status.LOADING -> {
-                    showToast("Loading")
+//                    showToast("Loading")
                 }
                 Status.SUCCESS -> {
                     topRatedMovieList.addAll(res.data!!.results)
                     topRatedAdapter.notifyDataSetChanged()
-                    showToast(res.status.toString())
                 }
                 Status.ERROR -> {
                     showToast(res.msg.toString())
