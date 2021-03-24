@@ -4,11 +4,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.databinding.HomeMovieCardBinding
+import project.dheeraj.cinewatch.ui.details.MovieDetailsActivity
 import project.dheeraj.cinewatch.utils.CONSTANTS
 
 /**
@@ -33,10 +37,21 @@ class HomeRecyclerViewAdapter(
             binding.movieImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path)
             binding.textMovieName.text = movies[position].title
             binding.textMovieRating.text = movies[position].vote_average.toString()
+
+            itemView.setOnClickListener {
+                onItemClicked(movies[position])
+            }
         }
 
     }
 
     override fun getItemCount() = movies.size
+
+    private fun onItemClicked(movie : Movie, imageView : ImageView? = null) {
+
+        MovieDetailsActivity.getStartIntent(context, movie)
+//        context.startActivity(intent)
+
+    }
 
 }

@@ -10,7 +10,6 @@ abstract class SafeApiRequest {
 
     suspend fun <T: Any> apiRequest(call : suspend() -> Response<T>): T {
 
-
         e("Api Request")
         val response = call.invoke()
 

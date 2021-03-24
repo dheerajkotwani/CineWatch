@@ -5,16 +5,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.ActivityMainBinding
+import project.dheeraj.cinewatch.ui.details.MovieDetailsActivity
 import project.dheeraj.cinewatch.ui.main.adapter.HomeRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.main.viewholder.MainViewModel
 import project.dheeraj.cinewatch.utils.showToast
-import timber.log.Timber.e
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
@@ -94,6 +96,14 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun onItemClicked(movie : Movie, imageView : ImageView?) {
+
+//        val intent = MovieDetailsActivity.getStartIntent(this, movie)
+//        startActivity(intent)
+
+    }
+
+
     private fun initAdapters() {
         upcomingAdapter = HomeRecyclerViewAdapter(this, upcomingMovieList)
         binding.recyclerViewUpcoming.adapter = upcomingAdapter
@@ -104,4 +114,5 @@ class MainActivity : AppCompatActivity() {
         topRatedAdapter = HomeRecyclerViewAdapter(this, topRatedMovieList)
         binding.recyclerViewTopRated.adapter = topRatedAdapter
     }
+
 }
