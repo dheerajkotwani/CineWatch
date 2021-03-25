@@ -31,4 +31,14 @@ class NetworkRepository : SafeApiRequest() {
         networkApi.getTopRatedMovies(CONSTANTS.API_KEY)
     }
 
+    // Movie Credits
+    suspend fun getMovieCredits(movie_id : Int) = apiRequest {
+        networkApi.getMovieCredits(movie_id, CONSTANTS.API_KEY)
+    }
+
+    // Get Similar Movies
+    suspend fun getSimilarMovies(movie_id : Int) = apiRequest {
+        networkApi.getSimilarMovies(movie_id, CONSTANTS.API_KEY)
+    }
+
 }
