@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CineWatch">
-        <activity android:name=".ui.details.MovieDetailsActivity"></activity>
+        <activity android:name=".ui.details.MovieDetailsActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
         <activity
             android:name=".ui.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">

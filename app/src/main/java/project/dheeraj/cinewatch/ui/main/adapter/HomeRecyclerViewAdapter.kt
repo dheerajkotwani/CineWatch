@@ -50,7 +50,6 @@ class HomeRecyclerViewAdapter(
     private fun onItemClicked(movie : Movie, imageView : ImageView? = null) {
 
         MovieDetailsActivity.getStartIntent(context, movie)
-//        context.startActivity(intent)
 
     }
 
