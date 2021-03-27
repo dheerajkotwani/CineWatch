@@ -15,15 +15,21 @@ interface NetworkService {
 
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
-        @Path("movie_id") movie_id: String,
+        @Path("movie_id") movie_id: Int,
         @Query ("api_key") apiKey : String
     ): Response<Movie>
 
-    @GET("/movie/{movie_id}/images")
+    @GET("movie/{movie_id}/images")
     suspend fun getMovieImage(
-        @Path("movie_id") movie_id: String,
+        @Path("movie_id") movie_id: Int,
         @Query ("api_key") apiKey : String
     ): Response<Movie>
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getVideos(
+            @Path("movie_id") movie_id: Int,
+            @Query ("api_key") apiKey : String
+    ): Response<VideoResponse>
 
     @GET("movie/{movie_id}/credits")
     suspend fun getMovieCredits(

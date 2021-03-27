@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Resource
+import project.dheeraj.cinewatch.data.model.VideoResponse
 import project.dheeraj.cinewatch.data.repository.NetworkRepository
 import java.net.SocketTimeoutException
 
@@ -19,9 +20,11 @@ class MovieDetailsViewModel : ViewModel() {
 
     private val _name = MutableLiveData("Movie Name")
     private val _movie = MutableLiveData<Movie>()
+    private val _videos = MutableLiveData<VideoResponse>()
 
     var movieName : MutableLiveData<String> = _name
     var movie : MutableLiveData<Movie> = _movie
+    var videos : MutableLiveData<VideoResponse> = _videos
 
     fun loadCast(movie_id : Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading())
@@ -40,6 +43,20 @@ class MovieDetailsViewModel : ViewModel() {
         try {
             // Fetch data from remote
             val apiResponse = repository.getSimilarMovies(movie_id)
+            emit(Resource.success(apiResponse))
+        } catch (e: Exception) {
+            if (e is SocketTimeoutException)
+                emit(Resource.error("Something went wrong!"))
+        }
+    }
+
+    fun getVideos(movie_id : Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        try {
+            // Fetch data from remote
+//            Log.e("Video", "Get Video")
+            val apiResponse = repository.getVideos(movie_id)
+            videos.postValue(apiResponse)
             emit(Resource.success(apiResponse))
         } catch (e: Exception) {
             if (e is SocketTimeoutException)

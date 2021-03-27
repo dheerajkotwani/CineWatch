@@ -16,6 +16,11 @@ class NetworkRepository : SafeApiRequest() {
         networkApi.getPopularMovies(CONSTANTS.API_KEY)
     }
 
+    // Get Videos
+    suspend fun getVideos(movie_id : Int) = apiRequest {
+        networkApi.getVideos(movie_id, CONSTANTS.API_KEY)
+    }
+
     // Upcoming Movies
     suspend fun getUpcomingMovie() = apiRequest {
         networkApi.getUpcomingMovies(CONSTANTS.API_KEY)

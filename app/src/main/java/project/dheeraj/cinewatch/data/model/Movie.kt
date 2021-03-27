@@ -19,5 +19,6 @@ class Movie (
     val genre_ids: ArrayList<Int>,
     val genre_names: ArrayList<String>,
     val genres: ArrayList<Genre>,
-    val videos: JSONObject
+    val video : Boolean,
+    val videos: Video
 )
