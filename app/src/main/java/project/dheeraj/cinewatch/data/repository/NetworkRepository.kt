@@ -46,4 +46,9 @@ class NetworkRepository : SafeApiRequest() {
         networkApi.getSimilarMovies(movie_id, CONSTANTS.API_KEY)
     }
 
+    // Get Person
+    suspend fun getPerson(personId : Int) = apiRequest {
+        networkApi.getPerson(personId, CONSTANTS.API_KEY)
+    }
+
 }

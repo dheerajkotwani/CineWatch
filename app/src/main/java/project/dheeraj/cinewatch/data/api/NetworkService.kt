@@ -43,9 +43,9 @@ interface NetworkService {
         @Query ("api_key") apiKey : String
     ): Response<MovieResponse>
 
-    @GET("/person/{person_id}")
+    @GET("person/{person_id}")
     suspend fun getPerson(
-        @Path("person_id") person_id: String,
+        @Path("person_id") person_id: Int,
         @Query ("api_key") apiKey : String
     ): Response<Actor>
 
