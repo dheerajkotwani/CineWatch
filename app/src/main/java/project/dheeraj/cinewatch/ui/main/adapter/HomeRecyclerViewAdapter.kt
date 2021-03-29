@@ -9,15 +9,18 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.databinding.HomeMovieCardBinding
 import project.dheeraj.cinewatch.ui.details.MovieDetailsActivity
 import project.dheeraj.cinewatch.utils.CONSTANTS
+import project.dheeraj.cinewatch.utils.getMoviePlaceHolder
 
 /**
  * Created by Dheeraj Kotwani on 22-03-2021.
  */
+@ExperimentalCoroutinesApi
 class HomeRecyclerViewAdapter(
         val context : Context,
         val movies : ArrayList<Movie>
@@ -34,7 +37,10 @@ class HomeRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(holder) {
-            binding.movieImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path)
+            binding.movieImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path) {
+                placeholder(CONSTANTS.moviePlaceHolder[position%4])
+                error(CONSTANTS.moviePlaceHolder[position%4])
+            }
             binding.textMovieName.text = movies[position].title
             binding.textMovieRating.text = movies[position].vote_average.toString()
 

@@ -12,6 +12,8 @@
         android:layout_height="200dp"
         android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
+        app:layout_constraintCircleRadius="4dp"
+        app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -33,10 +35,24 @@
         app:layout_constraintStart_toEndOf="@id/image_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/image_card"
-        tools:text="@string/movie_image"/>
+        tools:text="@string/actor_name"/>
+
 
     <TextView
-        android:id="@+id/text_stars"
+        android:id="@+id/text_also_known_as"
+        style="@style/TextAppearance.AppCompat.Display1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@id/image_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_actor_name"
+        tools:text="@string/known_for"/>
+
+    <TextView
+        android:id="@+id/text_popularity"
         style="@style/TextAppearance.AppCompat.Display1"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -47,7 +63,7 @@
         android:drawablePadding="6dp"
         app:layout_constraintStart_toEndOf="@id/image_card"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_actor_name"
+        app:layout_constraintTop_toBottomOf="@id/text_also_known_as"
         tools:text="star rating"/>
 
     <TextView
@@ -61,7 +77,7 @@
         android:drawablePadding="6dp"
         app:layout_constraintStart_toEndOf="@id/image_card"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_stars"
+        app:layout_constraintTop_toBottomOf="@id/text_popularity"
         tools:text="Characters"/>
 
     <TextView
@@ -80,7 +96,7 @@
         tools:text="@string/description"/>
 
     <TextView
-        android:id="@+id/heading_best_movie"
+        android:id="@+id/heading_bio"
         style="@style/TextAppearance.AppCompat.Headline"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -88,10 +104,38 @@
         android:textSize="18dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Best Movies"
+        android:text="Bio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_card"/>
+
+    <TextView
+        android:id="@+id/text_bio"
+        style="@style/TextAppearance.AppCompat.Display1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="2dp"
+        android:textSize="16dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Bio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heading_bio"/>
+
+    <TextView
+        android:id="@+id/heading_best_movie"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:textSize="18dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Best Movies"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_bio"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_best_movies"

@@ -13,6 +13,9 @@ import retrofit2.http.Query
  */
 interface NetworkService {
 
+    /**
+     * Movie
+     */
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
         @Path("movie_id") movie_id: Int,
@@ -35,19 +38,13 @@ interface NetworkService {
     suspend fun getMovieCredits(
         @Path("movie_id") movie_id: Int,
         @Query ("api_key") apiKey : String
-    ): Response<CreditsResponse>
+    ): Response<CastCreditsResponse>
 
     @GET("movie/{movie_id}/similar")
     suspend fun getSimilarMovies(
         @Path("movie_id") movie_id: Int,
         @Query ("api_key") apiKey : String
     ): Response<MovieResponse>
-
-    @GET("person/{person_id}")
-    suspend fun getPerson(
-        @Path("person_id") person_id: Int,
-        @Query ("api_key") apiKey : String
-    ): Response<Actor>
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
@@ -69,6 +66,21 @@ interface NetworkService {
         @Query ("api_key") apiKey : String
     ): Response<List<Movie>>
 
+
+    /**
+     * Person
+     */
+    @GET("person/{person_id}")
+    suspend fun getPerson(
+            @Path("person_id") person_id: Int,
+            @Query ("api_key") apiKey : String
+    ): Response<Actor>
+
+    @GET("person/{person_id}/movie_credits")
+    suspend fun getPersonMovieCredits(
+            @Path("person_id") person_id: Int,
+            @Query ("api_key") apiKey : String
+    ): Response<MovieCreditsResponse>
 
 
     companion object {

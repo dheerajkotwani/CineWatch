@@ -52,7 +52,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        binding.viewmodel.se
         binding.setLifecycleOwner(this)
         viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
         viewModel.movieName.value = movie!!.title

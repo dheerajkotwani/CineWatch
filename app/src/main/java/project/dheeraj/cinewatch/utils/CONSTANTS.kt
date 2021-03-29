@@ -1,6 +1,8 @@
 package project.dheeraj.cinewatch.utils
 
+import project.dheeraj.cinewatch.R
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Dheeraj Kotwani on 22-03-2021.
@@ -8,7 +10,7 @@ import java.util.*
 class CONSTANTS {
 
     companion object {
-        val API_KEY = "Your Api Key Here"
+        val API_KEY = "2b8a64199789a82f5cff8b0f159e69f8"
         val BaseURL = "https://api.themoviedb.org/3/"
         val ImageBaseURL = "https://image.tmdb.org/t/p/original"
         val ImageBaseURLw780 = "https://image.tmdb.org/t/p/w780"
@@ -20,6 +22,47 @@ class CONSTANTS {
         val Upcoming = "Upcoming"
         val Current = "Current"
         val TopRated = "TopRated"
+
+        fun getGenreMap(): HashMap<Int, String> {
+            val genreMap = HashMap<Int, String>()
+            genreMap[28] = "Action 🤠 "
+            genreMap[12] = "Adventure 🏕 "
+            genreMap[16] = "Animation 🎥 "
+            genreMap[35] = "Comedy 🤣 "
+            genreMap[80] = "Crime 👮‍♂️ "
+            genreMap[99] = "Documentary 📃 "
+            genreMap[18] = "Drama 😨 "
+            genreMap[10751] = "Family 👪 "
+            genreMap[14] = "Fantasy 🧙‍♂️ "
+            genreMap[36] = "History 💾 "
+            genreMap[27] = "Horror 👻 "
+            genreMap[10402] = "Music 🎶 "
+            genreMap[9648] = "Mystery 🕵️‍♀️ "
+            genreMap[10749] = "Romance 💏"
+            genreMap[878] = "Science Fiction 🚀 "
+            genreMap[53] = "Thriller 🗡 "
+            genreMap[10752] = "War ⚔ "
+            genreMap[37] = "Western 🤵 "
+            genreMap[10770] = "TV Movie 📺 "
+            return genreMap
+        }
+
+
+        val moviePlaceHolder = arrayListOf<Int>(
+                R.drawable.ic_movie_blue,
+                R.drawable.ic_movie_red,
+                R.drawable.ic_movie_yellow,
+                R.drawable.ic_movie_green,
+        )
+
+
+        val actorPlaceHolder = arrayListOf<Int> (
+                R.drawable.ic_person_blue,
+                R.drawable.ic_person_red,
+                R.drawable.ic_person_yellow,
+                R.drawable.ic_person_green,
+        )
+
     }
 
 }

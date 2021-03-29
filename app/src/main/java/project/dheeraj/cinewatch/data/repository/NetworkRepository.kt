@@ -51,4 +51,9 @@ class NetworkRepository : SafeApiRequest() {
         networkApi.getPerson(personId, CONSTANTS.API_KEY)
     }
 
+    // Person Movie Credits
+    suspend fun getPersonMovieCredits(personId : Int) = apiRequest {
+        networkApi.getPersonMovieCredits(personId, CONSTANTS.API_KEY)
+    }
+
 }
