@@ -98,6 +98,9 @@ dependencies {
     // Shimmer Layout
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
+    //Skeleton View
+    implementation 'com.faltenreich:skeletonlayout:1.0.0'
+
     // YouTube
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 

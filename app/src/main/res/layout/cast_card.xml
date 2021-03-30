@@ -3,16 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <Space
+        android:id="@+id/spacing_start"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/cast_name"/>
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cast_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/spacing_start"
         app:layout_constraintCircleRadius="50dp"
         tools:src="@tools:sample/avatars"/>
 
@@ -26,8 +36,17 @@
         android:ellipsize="end"
         app:layout_constraintTop_toBottomOf="@id/cast_image"
         app:layout_constraintStart_toStartOf="@id/cast_image"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/cast_image"
         tools:text="@tools:sample/full_names"/>
+
+    <Space
+        android:id="@+id/spacing_end"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cast_image"
+        app:layout_constraintBottom_toBottomOf="@id/cast_name"/>
 
 
 

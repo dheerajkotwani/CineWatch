@@ -26,7 +26,6 @@ class MainViewModel : ViewModel() {
         try {
             // Fetch data from remote
             val apiResponse = repository.getUpcomingMovie()
-//            e(apiResponse)
             emit(Resource.success(apiResponse))
         } catch (e: Exception) {
             if (e is SocketTimeoutException)
@@ -56,9 +55,6 @@ class MainViewModel : ViewModel() {
         try {
             // Fetch data from remote
             val apiResponse = repository.getTopRatedMovie()
-
-            // Parse Body
-//            val remoteData = apiResponse.body()
             emit(Resource.success(apiResponse))
         } catch (e: Exception) {
             if (e is SocketTimeoutException)

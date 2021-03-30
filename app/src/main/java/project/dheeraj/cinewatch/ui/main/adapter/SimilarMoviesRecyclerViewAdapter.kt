@@ -24,9 +24,7 @@ class SimilarMoviesRecyclerViewAdapter(
     val movies : ArrayList<Movie>
 ) : RecyclerView.Adapter<SimilarMoviesRecyclerViewAdapter.ViewHolder>() {
 
-
-
-    class ViewHolder(val itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val binding = SimilarMovieCardBinding.bind(itemView)
     }
 
@@ -36,7 +34,23 @@ class SimilarMoviesRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
-            binding.movieImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path)
+
+
+            if (position == 0) {
+                binding.spacingStart.visibility = View.VISIBLE
+            }
+            else if (position == movies.size-1) {
+                binding.spacingEnd.visibility = View.VISIBLE
+            }
+            else {
+                binding.spacingEnd.visibility = View.GONE
+                binding.spacingStart.visibility = View.GONE
+            }
+
+            binding.movieImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path) {
+                placeholder(CONSTANTS.moviePlaceHolder[position%4])
+                error(CONSTANTS.moviePlaceHolder[position%4])
+            }
 
             binding.movieImage.setOnClickListener {
                 MovieDetailsActivity.getStartIntent(context, movies[position])
@@ -45,11 +59,5 @@ class SimilarMoviesRecyclerViewAdapter(
     }
 
     override fun getItemCount(): Int = movies.size
-
-    private fun onItemClicked(movie : Movie, imageView : ImageView? = null) {
-
-        MovieDetailsActivity.getStartIntent(context, movie)
-
-    }
 
 }

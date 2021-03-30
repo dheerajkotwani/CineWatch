@@ -13,4 +13,6 @@
     <string name="cast">Cast</string>
     <string name="actor_name">Actor Name</string>
     <string name="known_for">Known for</string>
+    <string name="bio">Bio</string>
+    <string name="birthday">Birthday</string>
 </resources>

@@ -244,8 +244,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/heading_related"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:listitem="@layout/similar_movie_card"
-                android:layout_marginStart="12dp"/>
+                tools:listitem="@layout/similar_movie_card"/>
 
             <ImageView
                 android:id="@+id/button_back"

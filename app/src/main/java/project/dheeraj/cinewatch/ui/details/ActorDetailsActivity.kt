@@ -65,7 +65,7 @@ class ActorDetailsActivity : AppCompatActivity() {
 
                 binding.textPopularity.text = actor.popularity.toString()
                 binding.textCharacter.text = actor.known_for_department
-                binding.textDetails.text = actor.birthday
+                binding.textBirthday.text = actor.birthday
             }
         })
 

@@ -1,5 +1,6 @@
 package project.dheeraj.cinewatch.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,8 +9,11 @@ import android.util.Log
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.ActivityMainBinding
@@ -32,6 +36,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var popularAdapter : HomeRecyclerViewAdapter
     private lateinit var topRatedAdapter : HomeRecyclerViewAdapter
 
+    private lateinit var upcomingSkeleton : Skeleton
+    private lateinit var topRatedSkeleton : Skeleton
+    private lateinit var popularSkeleton : Skeleton
+
+
     companion object {
 
         fun start(context: Context) {
@@ -40,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -49,12 +59,16 @@ class MainActivity : AppCompatActivity() {
 
         initAdapters()
 
+        initSkeletons()
+
         viewModel.loadUpcoming().observe(this, Observer { res ->
             when(res.status) {
                 Status.LOADING -> {
-                    showToast("Loading")
+                    upcomingSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
+                    upcomingSkeleton.showOriginal()
+                    upcomingMovieList.clear()
                     upcomingMovieList.addAll(res.data!!.results)
                     upcomingAdapter.notifyDataSetChanged()
                 }
@@ -65,12 +79,14 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.loadPopular().observe(this, Observer { res ->
+
             when(res.status) {
                 Status.LOADING -> {
-//                    showToast("Loading")
+                    popularSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
-                    Log.e("Result", res.data!!.results[0].backdrop_path.toString())
+                    popularSkeleton.showOriginal()
+                    popularMovieList.clear()
                     popularMovieList.addAll(res.data!!.results)
                     popularAdapter.notifyDataSetChanged()
                 }
@@ -81,11 +97,14 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.loadTopRated().observe(this, Observer { res ->
+
             when(res.status) {
                 Status.LOADING -> {
-//                    showToast("Loading")
+                    topRatedSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
+                    topRatedSkeleton.showOriginal()
+                    topRatedMovieList.clear()
                     topRatedMovieList.addAll(res.data!!.results)
                     topRatedAdapter.notifyDataSetChanged()
                 }
@@ -96,11 +115,23 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun onItemClicked(movie : Movie, imageView : ImageView?) {
+    @SuppressLint("ResourceType")
+    private fun initSkeletons()
+    {
+        upcomingSkeleton = binding.recyclerViewUpcoming.applySkeleton(
+            R.layout.home_movie_card,
+            itemCount = 10
+        )
 
-//        val intent = MovieDetailsActivity.getStartIntent(this, movie)
-//        startActivity(intent)
+        popularSkeleton = binding.recyclerViewPopular.applySkeleton(
+            R.layout.home_movie_card,
+            itemCount = 10
+        )
 
+        topRatedSkeleton = binding.recyclerViewTopRated.applySkeleton(
+            R.layout.home_movie_card,
+            itemCount = 10
+        )
     }
 
 

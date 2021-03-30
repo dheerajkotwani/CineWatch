@@ -25,7 +25,7 @@ class CastRecyclerViewAdapter(
     val castList : ArrayList<Cast>
 ) : RecyclerView.Adapter<CastRecyclerViewAdapter.ViewHolder>() {
 
-    class ViewHolder(val itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val binding = CastCardBinding.bind(itemView)
     }
 
@@ -35,6 +35,18 @@ class CastRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         with(holder) {
+
+            if (position == 0) {
+                binding.spacingStart.visibility = View.VISIBLE
+            }
+            else if (position == castList.size-1) {
+                binding.spacingEnd.visibility = View.VISIBLE
+            }
+            else {
+                binding.spacingEnd.visibility = View.GONE
+                binding.spacingStart.visibility = View.GONE
+            }
+
             binding.castImage.load(CONSTANTS.ImageBaseURL + castList[position].profile_path) {
                 placeholder(CONSTANTS.actorPlaceHolder[position%4])
                 error(CONSTANTS.actorPlaceHolder[position%4])

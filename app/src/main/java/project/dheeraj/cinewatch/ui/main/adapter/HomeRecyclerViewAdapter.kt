@@ -37,6 +37,18 @@ class HomeRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         with(holder) {
+
+            if (position == 0) {
+                binding.spacingStart.visibility = View.VISIBLE
+            }
+            else if (position == movies.size-1) {
+                binding.spacingEnd.visibility = View.VISIBLE
+            }
+            else {
+                binding.spacingEnd.visibility = View.GONE
+                binding.spacingStart.visibility = View.GONE
+            }
+
             binding.movieImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path) {
                 placeholder(CONSTANTS.moviePlaceHolder[position%4])
                 error(CONSTANTS.moviePlaceHolder[position%4])
@@ -46,6 +58,10 @@ class HomeRecyclerViewAdapter(
 
             itemView.setOnClickListener {
                 onItemClicked(movies[position])
+            }
+
+            if (position == movies.size-1) {
+                binding.spacingEnd.visibility = View.VISIBLE
             }
         }
 
