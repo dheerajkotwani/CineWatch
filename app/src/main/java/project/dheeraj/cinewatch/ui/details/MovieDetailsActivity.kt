@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Cast
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
@@ -34,6 +37,9 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var castRecyclerViewAdapter : CastRecyclerViewAdapter
     private lateinit var similarRecyclerViewAdapter : SimilarMoviesRecyclerViewAdapter
 
+    private lateinit var castSkeleton: Skeleton
+    private lateinit var similarMovieSkeleton: Skeleton
+
     companion object {
 
         private var movieId = 0;
@@ -46,7 +52,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
 
     }
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
@@ -54,6 +60,10 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         binding.setLifecycleOwner(this)
         viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
+
+        castSkeleton = binding.recyclerViewCast.applySkeleton(R.layout.cast_card, 10)
+        similarMovieSkeleton = binding.recyclerViewRelated.applySkeleton(R.layout.similar_movie_card, 10)
+
         viewModel.movieName.value = movie!!.title
         viewModel.movie.value = movie!!
 
@@ -90,7 +100,6 @@ class MovieDetailsActivity : AppCompatActivity() {
         })
 
         viewModel.movie.observe(this, Observer {
-            showToast("Update")
             binding.textMovieName.text = it!!.title
             binding.textRating.text = "${it.vote_average}/10"
             binding.textReleaseDate.text = it.release_date
@@ -115,11 +124,11 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.loadCast(movieId).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    // TODO Shimmer Layout
-                    showToast("Loading")
+//                    castSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
-                    Log.e("Cast", it.data!!.cast.toString())
+//                    castSkeleton.showOriginal()
+                    castList.clear()
                     castList.addAll(it.data!!.cast)
                     castRecyclerViewAdapter.notifyDataSetChanged()
                 }
@@ -132,13 +141,12 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.loadSimilar(movieId).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    // TODO Shimmer Layout
-                    Log.e("Load Similar", "loading")
-                    showToast("Loading")
+                    similarMovieSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
+                    similarMovieSkeleton.showOriginal()
+                    similarList.clear()
                     similarList.addAll(it.data!!.results)
-                    Log.e("Similar", it.data.results.toString())
                     similarRecyclerViewAdapter.notifyDataSetChanged()
                 }
                 Status.ERROR -> {

@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <View
+    <Space
         android:id="@+id/spacing_start"
         android:layout_width="12dp"
         android:layout_height="0dp"
@@ -35,7 +35,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <View
+    <Space
         android:id="@+id/spacing_end"
         android:layout_width="10dp"
         android:layout_height="0dp"

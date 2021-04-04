@@ -15,4 +15,5 @@
     <string name="known_for">Known for</string>
     <string name="bio">Bio</string>
     <string name="birthday">Birthday</string>
+    <string name="card_image">Card Image</string>
 </resources>

@@ -27,12 +27,11 @@ class ActorDetailsViewModel : ViewModel() {
     }
 
     fun getPersonMovieCredits(person_id : Int) = liveData(Dispatchers.IO) {
-
         emit(Resource.loading())
         try {
             // Fetch Data from Api
             val apiResponse = repository.getPersonMovieCredits(person_id)
-            emit(Resource.success(apiResponse.cast))
+            emit(Resource.success(apiResponse))
         } catch (e : Exception) {
             if (e is SocketTimeoutException) {
                 emit(Resource.error("Something went wrong!"))

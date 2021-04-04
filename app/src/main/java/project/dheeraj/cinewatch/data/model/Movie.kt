@@ -5,7 +5,7 @@ import org.json.JSONObject
 /**
  * Created by Dheeraj Kotwani on 19-03-2021.
  */
-class Movie (
+data class Movie (
     val id: Int,
     val vote_count: Int,
     val runtime: Int,

@@ -9,13 +9,17 @@ import android.view.LayoutInflater
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Cast
 import project.dheeraj.cinewatch.data.model.Movie
+import project.dheeraj.cinewatch.data.model.State
+import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.ActivityActorDetailsBinding
 import project.dheeraj.cinewatch.ui.main.adapter.HomeRecyclerViewAdapter
 import project.dheeraj.cinewatch.utils.CONSTANTS
+import project.dheeraj.cinewatch.utils.showToast
 
 @ExperimentalCoroutinesApi
 class ActorDetailsActivity : AppCompatActivity() {
@@ -36,7 +40,7 @@ class ActorDetailsActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityActorDetailsBinding.inflate(layoutInflater)
@@ -69,11 +73,22 @@ class ActorDetailsActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.getPersonMovieCredits(personId).observe(this, Observer {
-            if (!it.data.isNullOrEmpty()) {
-                movieCredits.clear()
-                movieCredits.addAll(it.data)
-                homeRecyclerViewAdapter.notifyDataSetChanged()
+        val skeleton = binding.recyclerViewBestMovies.applySkeleton(R.layout.home_movie_card, 10)
+
+        viewModel.getPersonMovieCredits(personId).observe(this, Observer { res ->
+            when (res.status) {
+                Status.LOADING -> {
+                    skeleton.showSkeleton()
+                }
+                Status.SUCCESS -> {
+                    skeleton.showOriginal()
+                    movieCredits.clear()
+                    movieCredits.addAll(res.data!!.cast)
+                    homeRecyclerViewAdapter.notifyDataSetChanged()
+                }
+                Status.ERROR -> {
+                    showToast("Something went wrong!")
+                }
             }
         })
     }

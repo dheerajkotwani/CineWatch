@@ -3,7 +3,7 @@ package project.dheeraj.cinewatch.data.model
 /**
  * Created by Dheeraj Kotwani on 19-03-2021.
  */
-class Cast (
+data class Cast (
     val id: Int,
     val name: String,
     val original_name: String,

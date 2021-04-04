@@ -5,7 +5,7 @@ import org.json.JSONObject
 /**
  * Created by Dheeraj Kotwani on 19-03-2021.
  */
-class Actor (
+data class Actor (
     val id: Int,
     val popularity: Number,
     val name: String,
