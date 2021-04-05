@@ -19,6 +19,7 @@ abstract class SafeApiRequest {
         }
         else {
             e(response.code().toString())
+            e(response.message())
             throw Exception(response.code().toString())
         }
 

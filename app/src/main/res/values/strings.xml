@@ -16,4 +16,6 @@
     <string name="bio">Bio</string>
     <string name="birthday">Birthday</string>
     <string name="card_image">Card Image</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

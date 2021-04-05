@@ -6,11 +6,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.SkeletonLayout
 import com.faltenreich.skeletonlayout.applySkeleton
+import com.faltenreich.skeletonlayout.createSkeleton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
@@ -19,6 +22,7 @@ import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.ActivityMainBinding
 import project.dheeraj.cinewatch.ui.details.MovieDetailsActivity
 import project.dheeraj.cinewatch.ui.main.adapter.HomeRecyclerViewAdapter
+import project.dheeraj.cinewatch.ui.main.adapter.HomeViewPagerAdapter
 import project.dheeraj.cinewatch.ui.main.viewholder.MainViewModel
 import project.dheeraj.cinewatch.utils.showToast
 
@@ -36,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var popularAdapter : HomeRecyclerViewAdapter
     private lateinit var topRatedAdapter : HomeRecyclerViewAdapter
 
+    private lateinit var viewPagerSkeleton : Skeleton
     private lateinit var upcomingSkeleton : Skeleton
     private lateinit var topRatedSkeleton : Skeleton
     private lateinit var popularSkeleton : Skeleton
@@ -60,6 +65,22 @@ class MainActivity : AppCompatActivity() {
         initAdapters()
 
         initSkeletons()
+
+        viewModel.loadNowPlaying().observe(this, Observer { res ->
+            when(res.status) {
+                Status.LOADING -> {
+                    viewPagerSkeleton.showSkeleton()
+                }
+                Status.SUCCESS -> {
+                    viewPagerSkeleton.showOriginal()
+                    binding.homeViewPager.adapter = HomeViewPagerAdapter(supportFragmentManager, lifecycle, res.data!!.results)
+
+                }
+                Status.ERROR -> {
+                    showToast(res.msg.toString())
+                }
+            }
+        })
 
         viewModel.loadUpcoming().observe(this, Observer { res ->
             when(res.status) {
@@ -118,6 +139,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     private fun initSkeletons()
     {
+        viewPagerSkeleton = binding.homeViewPager.applySkeleton(R.layout.fragment_home_view_pager)
+
         upcomingSkeleton = binding.recyclerViewUpcoming.applySkeleton(
             R.layout.home_movie_card,
             itemCount = 10

@@ -21,6 +21,18 @@ class MainViewModel : ViewModel() {
 
     private val repository = NetworkRepository()
 
+    fun loadNowPlaying() = liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        try {
+            // Fetch data from remote
+            val apiResponse = repository.getNowPlayingMovie()
+            emit(Resource.success(apiResponse))
+        } catch (e: Exception) {
+            if (e is SocketTimeoutException)
+                emit(Resource.error("Something went wrong!"))
+        }
+    }
+
     fun loadUpcoming() = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {
@@ -36,7 +48,6 @@ class MainViewModel : ViewModel() {
     fun loadPopular() = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {
-            e("try Request")
             // Fetch data from remote
             val apiResponse = repository.getPopularMovie()
             e(apiResponse.toString())

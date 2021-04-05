@@ -1,16 +1,13 @@
 package project.dheeraj.cinewatch.ui.details
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import androidx.lifecycle.*
+import kotlinx.coroutines.*
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Resource
 import project.dheeraj.cinewatch.data.model.VideoResponse
 import project.dheeraj.cinewatch.data.repository.NetworkRepository
+import timber.log.Timber.e
 import java.net.SocketTimeoutException
 
 @ExperimentalCoroutinesApi
@@ -50,18 +47,16 @@ class MovieDetailsViewModel : ViewModel() {
         }
     }
 
-    fun getVideos(movie_id : Int) = liveData(Dispatchers.IO) {
-        emit(Resource.loading())
-        try {
-            // Fetch data from remote
-//            Log.e("Video", "Get Video")
-            val apiResponse = repository.getVideos(movie_id)
-            videos.postValue(apiResponse)
-            emit(Resource.success(apiResponse))
-        } catch (e: Exception) {
-            if (e is SocketTimeoutException)
-                emit(Resource.error("Something went wrong!"))
+    fun getVideos(movie_id : Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val apiResponse = repository.getVideos(movie_id)
+                videos.postValue(apiResponse)
+            } catch (e: Exception) {
+                e(e)
+            }
         }
+
     }
 
 

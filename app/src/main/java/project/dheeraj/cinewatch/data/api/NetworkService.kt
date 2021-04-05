@@ -61,10 +61,10 @@ interface NetworkService {
         @Query ("api_key") apiKey : String
     ): Response<MovieResponse>
 
-    @GET("/movie/now_playing")
+    @GET("movie/now_playing")
     suspend fun getNowPlayingMovies(
         @Query ("api_key") apiKey : String
-    ): Response<List<Movie>>
+    ): Response<MovieResponse>
 
 
     /**

@@ -17,7 +17,7 @@ import project.dheeraj.cinewatch.data.model.Cast
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.ActivityMovieDetailsBinding
-import project.dheeraj.cinewatch.ui.dialog.VideoDialog
+import project.dheeraj.cinewatch.ui.dialog.VideoPlayerDialog
 import project.dheeraj.cinewatch.ui.main.adapter.CastRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.main.adapter.SimilarMoviesRecyclerViewAdapter
 import project.dheeraj.cinewatch.utils.CONSTANTS
@@ -70,7 +70,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.fabPlayButton.setOnClickListener {
 
             if (viewModel.videos.value != null && viewModel.videos.value!!.results.size != 0) {
-                val videoDialog = VideoDialog(viewModel.videos.value!!.results[0].key)
+                val videoDialog = VideoPlayerDialog(viewModel.videos.value!!.results[0].key)
                 videoDialog.show(supportFragmentManager, "Video Dialog")
             }
             else {
@@ -85,19 +85,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         binding.recyclerViewCast.adapter = castRecyclerViewAdapter
         binding.recyclerViewRelated.adapter = similarRecyclerViewAdapter
 
-        viewModel.getVideos(movieId).observe(this, Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    // TODO Shimmer Layout
-                }
-                Status.SUCCESS -> {
-                    Log.e("Video", it.data!!.results.toString())
-                }
-                Status.ERROR -> {
-                    showToast("Something went wrong!")
-                }
-            }
-        })
+        viewModel.getVideos(movieId)
 
         viewModel.movie.observe(this, Observer {
             binding.textMovieName.text = it!!.title
@@ -115,8 +103,14 @@ class MovieDetailsActivity : AppCompatActivity() {
             }
             binding.textGenres.text = genre
 
-            binding.detailsBannerImage.load(CONSTANTS.ImageBaseURL + it.backdrop_path)
-            binding.imagePoster.load(CONSTANTS.ImageBaseURL + it.poster_path)
+            binding.detailsBannerImage.load(CONSTANTS.ImageBaseURL + it.backdrop_path) {
+                placeholder(CONSTANTS.viewPagerPlaceHolder.random())
+                error(CONSTANTS.viewPagerPlaceHolder.random())
+            }
+            binding.imagePoster.load(CONSTANTS.ImageBaseURL + it.poster_path) {
+                placeholder(CONSTANTS.moviePlaceHolder.random())
+                error(CONSTANTS.moviePlaceHolder.random())
+            }
         })
 
 
@@ -131,6 +125,7 @@ class MovieDetailsActivity : AppCompatActivity() {
                     castList.clear()
                     castList.addAll(it.data!!.cast)
                     castRecyclerViewAdapter.notifyDataSetChanged()
+//                    castSkeleton.showOriginal()
                 }
                 Status.ERROR -> {
                     showToast("Something went wrong!")
@@ -141,13 +136,13 @@ class MovieDetailsActivity : AppCompatActivity() {
         viewModel.loadSimilar(movieId).observe(this, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    similarMovieSkeleton.showSkeleton()
+//                    similarMovieSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
-                    similarMovieSkeleton.showOriginal()
                     similarList.clear()
                     similarList.addAll(it.data!!.results)
                     similarRecyclerViewAdapter.notifyDataSetChanged()
+//                    similarMovieSkeleton.showOriginal()
                 }
                 Status.ERROR -> {
                     showToast("Something went wrong!")

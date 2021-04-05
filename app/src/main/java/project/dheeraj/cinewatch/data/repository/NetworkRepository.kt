@@ -13,7 +13,7 @@ class NetworkRepository : SafeApiRequest() {
 
     // Now Playing Movies
     suspend fun getNowPlayingMovie() = apiRequest {
-        networkApi.getPopularMovies(CONSTANTS.API_KEY)
+        networkApi.getNowPlayingMovies(CONSTANTS.API_KEY)
     }
 
     // Get Videos

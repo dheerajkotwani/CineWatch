@@ -52,7 +52,14 @@ class CONSTANTS {
                 R.drawable.ic_movie_blue,
                 R.drawable.ic_movie_red,
                 R.drawable.ic_movie_yellow,
-                R.drawable.ic_movie_green,
+                R.drawable.ic_movie_green
+        )
+
+        val viewPagerPlaceHolder = arrayListOf<Int>(
+            R.drawable.ic_movie_blue_wide,
+            R.drawable.ic_movie_red_wide,
+            R.drawable.ic_movie_yellow_wide,
+            R.drawable.ic_movie_green_wide
         )
 
 
@@ -60,7 +67,7 @@ class CONSTANTS {
                 R.drawable.ic_person_blue,
                 R.drawable.ic_person_red,
                 R.drawable.ic_person_yellow,
-                R.drawable.ic_person_green,
+                R.drawable.ic_person_green
         )
 
     }
