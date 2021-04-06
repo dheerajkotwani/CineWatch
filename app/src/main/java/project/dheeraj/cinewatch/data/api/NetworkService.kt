@@ -13,9 +13,6 @@ import retrofit2.http.Query
  */
 interface NetworkService {
 
-    /**
-     * Movie
-     */
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
         @Path("movie_id") movie_id: Int,
@@ -67,9 +64,7 @@ interface NetworkService {
     ): Response<MovieResponse>
 
 
-    /**
-     * Person
-     */
+    // Person
     @GET("person/{person_id}")
     suspend fun getPerson(
             @Path("person_id") person_id: Int,
