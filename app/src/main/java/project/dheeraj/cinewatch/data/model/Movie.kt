@@ -1,10 +1,14 @@
 package project.dheeraj.cinewatch.data.model
 
+import androidx.room.Entity
 import org.json.JSONObject
+import project.dheeraj.cinewatch.data.model.Movie.Companion.TABLE_NAME
 
 /**
  * Created by Dheeraj Kotwani on 19-03-2021.
  */
+
+@Entity(tableName = TABLE_NAME)
 data class Movie (
     val id: Int,
     val vote_count: Int,
@@ -21,4 +25,8 @@ data class Movie (
     val genres: ArrayList<Genre>,
     val video : Boolean,
     val videos: Video
-)
+) {
+    companion object {
+        const val TABLE_NAME = "BOOKMARK_TABLE"
+    }
+}

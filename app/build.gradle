@@ -93,6 +93,13 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
 
+    // Navigation Components
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
+
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
@@ -109,4 +116,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
 }
