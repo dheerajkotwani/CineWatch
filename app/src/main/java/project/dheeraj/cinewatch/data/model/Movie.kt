@@ -1,6 +1,7 @@
 package project.dheeraj.cinewatch.data.model
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import org.json.JSONObject
 import project.dheeraj.cinewatch.data.model.Movie.Companion.TABLE_NAME
 
@@ -10,6 +11,7 @@ import project.dheeraj.cinewatch.data.model.Movie.Companion.TABLE_NAME
 
 @Entity(tableName = TABLE_NAME)
 data class Movie (
+    @PrimaryKey
     val id: Int,
     val vote_count: Int,
     val runtime: Int,

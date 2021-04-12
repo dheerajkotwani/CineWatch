@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="project.dheeraj.cinewatch.ui.home.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_bookmarksFragment"
+            app:destination="@id/bookmarksFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment2"
+            app:destination="@id/searchFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookmarksFragment"
+        android:name="project.dheeraj.cinewatch.ui.bookmarks.BookmarksFragment"
+        android:label="bookmarks_fragment"
+        tools:layout="@layout/bookmarks_fragment" >
+        <action
+            android:id="@+id/action_bookmarksFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="project.dheeraj.cinewatch.ui.details.MovieDetailsFragment"
+        android:label="movie_details_fragment"
+        tools:layout="@layout/movie_details_fragment" >
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_actorDetailsFragment"
+            app:destination="@id/actorDetailsFragment" />
+        <action
+            android:id="@+id/action_movieDetailsFragment_self"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/actorDetailsFragment"
+        android:name="project.dheeraj.cinewatch.ui.details.ActorDetailsFragment"
+        android:label="fragment_actor_details"
+        tools:layout="@layout/fragment_actor_details" >
+        <action
+            android:id="@+id/action_actorDetailsFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="project.dheeraj.cinewatch.ui.search.SearchFragment"
+        android:label="search_fragment"
+        tools:layout="@layout/search_fragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
 
 </navigation>
