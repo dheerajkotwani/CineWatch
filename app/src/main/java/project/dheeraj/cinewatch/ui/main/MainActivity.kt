@@ -66,14 +66,20 @@ class MainActivity : AppCompatActivity() {
 
         initSkeletons()
 
+        fetchData()
+
+    }
+
+    private fun fetchData() {
         viewModel.loadNowPlaying().observe(this, Observer { res ->
-            when(res.status) {
+            when (res.status) {
                 Status.LOADING -> {
                     viewPagerSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
                     viewPagerSkeleton.showOriginal()
-                    binding.homeViewPager.adapter = HomeViewPagerAdapter(supportFragmentManager, lifecycle, res.data!!.results)
+                    binding.homeViewPager.adapter =
+                        HomeViewPagerAdapter(supportFragmentManager, lifecycle, res.data!!.results)
 
                 }
                 Status.ERROR -> {
@@ -83,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.loadUpcoming().observe(this, Observer { res ->
-            when(res.status) {
+            when (res.status) {
                 Status.LOADING -> {
                     upcomingSkeleton.showSkeleton()
                 }
@@ -100,8 +106,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.loadPopular().observe(this, Observer { res ->
-
-            when(res.status) {
+            when (res.status) {
                 Status.LOADING -> {
                     popularSkeleton.showSkeleton()
                 }
@@ -118,8 +123,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.loadTopRated().observe(this, Observer { res ->
-
-            when(res.status) {
+            when (res.status) {
                 Status.LOADING -> {
                     topRatedSkeleton.showSkeleton()
                 }

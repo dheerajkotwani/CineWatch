@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_movieDetailsFragment_self"
             app:destination="@id/movieDetailsFragment" />
+        <argument
+            android:name="movie"
+            app:argType="project.dheeraj.cinewatch.data.model.Movie"/>
     </fragment>
 
     <fragment

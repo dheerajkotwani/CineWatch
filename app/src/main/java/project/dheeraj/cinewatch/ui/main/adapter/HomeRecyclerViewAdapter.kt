@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ImageView
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,7 +59,9 @@ class HomeRecyclerViewAdapter(
             binding.textMovieRating.text = movies[position].vote_average.toString()
 
             itemView.setOnClickListener {
-                onItemClicked(movies[position])
+//                onItemClicked(movies[position])
+                val bundle = bundleOf("movie" to movies[position])
+                it.findNavController().navigate(R.id.action_homeFragment_to_movieDetailsFragment, bundle)
             }
 
             if (position == movies.size-1) {
@@ -71,7 +75,7 @@ class HomeRecyclerViewAdapter(
 
     private fun onItemClicked(movie : Movie, imageView : ImageView? = null) {
 
-        MovieDetailsActivity.getStartIntent(context, movie)
+//        MovieDetailsActivity.getStartIntent(context, movie)
 
     }
 

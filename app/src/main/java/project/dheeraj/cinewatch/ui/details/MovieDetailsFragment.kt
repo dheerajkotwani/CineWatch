@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import project.dheeraj.cinewatch.R
+import project.dheeraj.cinewatch.data.model.Movie
+import project.dheeraj.cinewatch.utils.showToast
 
 class MovieDetailsFragment : Fragment() {
 
@@ -27,6 +29,8 @@ class MovieDetailsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
         // TODO: Use the ViewModel
+        val movie = requireArguments().get("movie") as Movie
+        showToast(movie.title)
     }
 
 }

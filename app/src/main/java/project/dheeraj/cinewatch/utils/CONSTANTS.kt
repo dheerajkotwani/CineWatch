@@ -10,6 +10,8 @@ import kotlin.collections.ArrayList
 class CONSTANTS {
 
     companion object {
+        const val TABLE_NAME = "BOOKMARK_TABLE"
+
         val API_KEY = "2b8a64199789a82f5cff8b0f159e69f8"
         val BaseURL = "https://api.themoviedb.org/3/"
         val ImageBaseURL = "https://image.tmdb.org/t/p/original"

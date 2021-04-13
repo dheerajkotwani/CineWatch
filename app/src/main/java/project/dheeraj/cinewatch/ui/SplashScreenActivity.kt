@@ -7,6 +7,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import project.dheeraj.cinewatch.R
+import project.dheeraj.cinewatch.ui.home.HomeActivity
 import project.dheeraj.cinewatch.ui.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.IO) {
             delay(2500)
-            MainActivity.start(this@SplashScreenActivity)
+            HomeActivity.start(this@SplashScreenActivity)
             finish()
         }
 

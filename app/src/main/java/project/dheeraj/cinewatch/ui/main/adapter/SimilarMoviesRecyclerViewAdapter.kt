@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,7 +54,8 @@ class SimilarMoviesRecyclerViewAdapter(
             }
 
             binding.movieImage.setOnClickListener {
-                MovieDetailsActivity.getStartIntent(context, movies[position])
+                it.findNavController().navigate(R.id.action_movieDetailsFragment_self)
+//                MovieDetailsActivity.getStartIntent(context, movies[position])
             }
         }
     }

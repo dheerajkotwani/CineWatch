@@ -13,19 +13,19 @@ import project.dheeraj.cinewatch.data.model.Movie
 /**
  * Data Access Object[DAO]
  */
-@Dao
-interface BookmarkDao {
-
-    /**
-     * Insert [Movie] into the Movie Table
-     */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMovie(Movie: Movie)
-
-    /**
-     * Delete [Movie] by [Movie.id]
-     */
-    @Query("Delete from ${Movie.TABLE_NAME} where id=:id")
-    fun deleteMovieById(id : Int)
-
-}
+//@Dao
+//interface BookmarkDao {
+//
+//    /**
+//     * Insert [Movie] into the Movie Table
+//     */
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertMovie(Movie: Movie)
+//
+//    /**
+//     * Delete [Movie] by [Movie.id]
+//     */
+//    @Query("Delete from ${Movie.TABLE_NAME} where id=:id")
+//    fun deleteMovieById(id : Int)
+//
+//}

@@ -23,4 +23,6 @@ class HomeViewPagerAdapter (
         return HomeViewPagerFragment(movies[position])
     }
 
+
+
 }
