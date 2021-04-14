@@ -43,12 +43,8 @@ class HomeViewModel : ViewModel() {
         try {
             // Fetch data from remote
             val apiResponse = repository.getPopularMovie()
-            Timber.e(apiResponse.toString())
-
             emit(Resource.success(apiResponse))
         } catch (e: Exception) {
-            Timber.e(e)
-
             if (e is SocketTimeoutException)
                 emit(Resource.error("Something went wrong!"))
         }

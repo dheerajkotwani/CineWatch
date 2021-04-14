@@ -1,4 +1,4 @@
-package project.dheeraj.cinewatch.ui.main.adapter
+package project.dheeraj.cinewatch.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,26 +10,25 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
-import project.dheeraj.cinewatch.data.model.Movie
-import project.dheeraj.cinewatch.databinding.ItemSimilarMovieBinding
+import project.dheeraj.cinewatch.data.model.Cast
+import project.dheeraj.cinewatch.databinding.ItemCastBinding
 import project.dheeraj.cinewatch.utils.CONSTANTS
 
 /**
  * Created by Dheeraj Kotwani on 26-03-2021.
  */
-
 @ExperimentalCoroutinesApi
-class SimilarMoviesRecyclerViewAdapter(
+class CastRecyclerViewAdapter(
     val context : Context,
-    val movies : ArrayList<Movie>
-) : RecyclerView.Adapter<SimilarMoviesRecyclerViewAdapter.ViewHolder>() {
+    val castList : ArrayList<Cast>
+) : RecyclerView.Adapter<CastRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val binding = ItemSimilarMovieBinding.bind(itemView)
+        val binding = ItemCastBinding.bind(itemView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_similar_movie, parent, false))
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_cast, parent,false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -38,7 +37,7 @@ class SimilarMoviesRecyclerViewAdapter(
             if (position == 0) {
                 binding.spacingStart.visibility = View.VISIBLE
             }
-            else if (position == movies.size-1) {
+            else if (position == castList.size-1) {
                 binding.spacingEnd.visibility = View.VISIBLE
             }
             else {
@@ -46,18 +45,20 @@ class SimilarMoviesRecyclerViewAdapter(
                 binding.spacingStart.visibility = View.GONE
             }
 
-            binding.movieImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path) {
-                placeholder(CONSTANTS.moviePlaceHolder[position%4])
-                error(CONSTANTS.moviePlaceHolder[position%4])
+            binding.castImage.load(CONSTANTS.ImageBaseURL + castList[position].profile_path) {
+                placeholder(CONSTANTS.actorPlaceHolder[position%4])
+                error(CONSTANTS.actorPlaceHolder[position%4])
             }
 
-            binding.movieImage.setOnClickListener {
-                val bundle = bundleOf(CONSTANTS.movie to movies[position])
-                it.findNavController().navigate(R.id.action_movieDetailsFragment_self, bundle)
+            binding.castName.text = castList[position].name
+
+            binding.root.setOnClickListener {
+                val bundle = bundleOf(CONSTANTS.cast to castList[position])
+                it.findNavController().navigate(R.id.action_movieDetailsFragment_to_actorDetailsFragment, bundle)
             }
         }
     }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = Math.min(20, castList.size)
 
 }

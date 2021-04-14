@@ -2,6 +2,7 @@ package project.dheeraj.cinewatch.data.repository
 
 import project.dheeraj.cinewatch.data.api.NetworkService
 import project.dheeraj.cinewatch.data.api.SafeApiRequest
+import project.dheeraj.cinewatch.di.module.ApiModule
 import project.dheeraj.cinewatch.utils.CONSTANTS
 
 /**
@@ -9,7 +10,7 @@ import project.dheeraj.cinewatch.utils.CONSTANTS
  */
 class NetworkRepository : SafeApiRequest() {
 
-    private val networkApi = NetworkService()
+    private val networkApi = ApiModule().invoke()
 
     // Now Playing Movies
     suspend fun getNowPlayingMovie() = apiRequest {
@@ -54,6 +55,11 @@ class NetworkRepository : SafeApiRequest() {
     // Person Movie Credits
     suspend fun getPersonMovieCredits(personId : Int) = apiRequest {
         networkApi.getPersonMovieCredits(personId, CONSTANTS.API_KEY)
+    }
+
+    // Search Movie
+    suspend fun searchMovie(query: String, page: Int) = apiRequest {
+        networkApi.searchMovie(query, page, CONSTANTS.API_KEY)
     }
 
 }

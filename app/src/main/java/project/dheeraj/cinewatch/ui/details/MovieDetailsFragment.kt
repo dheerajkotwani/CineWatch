@@ -18,8 +18,8 @@ import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.MovieDetailsFragmentBinding
 import project.dheeraj.cinewatch.ui.dialog.VideoPlayerDialog
-import project.dheeraj.cinewatch.ui.main.adapter.CastRecyclerViewAdapter
-import project.dheeraj.cinewatch.ui.main.adapter.SimilarMoviesRecyclerViewAdapter
+import project.dheeraj.cinewatch.ui.adapter.CastRecyclerViewAdapter
+import project.dheeraj.cinewatch.ui.adapter.SimilarMoviesRecyclerViewAdapter
 import project.dheeraj.cinewatch.utils.CONSTANTS
 import project.dheeraj.cinewatch.utils.showToast
 

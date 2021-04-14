@@ -1,4 +1,4 @@
-package project.dheeraj.cinewatch.ui.main.adapter
+package project.dheeraj.cinewatch.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

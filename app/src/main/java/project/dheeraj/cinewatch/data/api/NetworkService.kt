@@ -25,6 +25,7 @@ interface NetworkService {
         @Query ("api_key") apiKey : String
     ): Response<Movie>
 
+
     @GET("movie/{movie_id}/videos")
     suspend fun getVideos(
             @Path("movie_id") movie_id: Int,
@@ -77,20 +78,13 @@ interface NetworkService {
             @Query ("api_key") apiKey : String
     ): Response<MovieCreditsResponse>
 
+    // Search
+    @GET("search/movie")
+    suspend fun searchMovie(
+            @Query("query") movie_id: String,
+            @Query("page") page: Int,
+            @Query ("api_key") apiKey : String
+    ): Response<MovieResponse>
 
-    companion object {
-        const val API_URL = "https://api.themoviedb.org/3/";
-
-        operator fun invoke() : NetworkService {
-
-            return Retrofit.Builder()
-                    .baseUrl(API_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(NetworkService::class.java)
-
-        }
-
-    }
 
 }

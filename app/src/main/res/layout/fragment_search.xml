@@ -10,7 +10,6 @@
         android:id="@+id/search_edit_text"
         android:layout_width="0dp"
         android:layout_height="46dp"
-        android:background="@drawable/search_bg"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
@@ -19,8 +18,10 @@
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:hint="Search"
+        android:lines="1"
         android:gravity="center_vertical"
         android:imeOptions="actionSearch"
+        android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -34,6 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:spanCount="3"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

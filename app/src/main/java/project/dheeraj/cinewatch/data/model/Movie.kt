@@ -13,11 +13,9 @@ import project.dheeraj.cinewatch.utils.CONSTANTS.Companion.TABLE_NAME
  * Created by Dheeraj Kotwani on 19-03-2021.
  */
 @Parcelize
-@Entity(tableName = TABLE_NAME)
 data class Movie (
-        @PrimaryKey
         val id: Int,
-        val vote_cofrunt: Int,
+        val vote_count: Int,
         val runtime: Int,
         val poster_path: String,
         val overview: String,

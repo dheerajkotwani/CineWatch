@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment2"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_viewAllFragment"
+            app:destination="@id/viewAllFragment" />
     </fragment>
 
     <fragment
@@ -66,6 +69,15 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewAllFragment"
+        android:name="project.dheeraj.cinewatch.ui.list.ViewAllFragment"
+        android:label="fragment_view_all"
+        tools:layout="@layout/fragment_view_all" >
+        <action
+            android:id="@+id/action_viewAllFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
     </fragment>
 

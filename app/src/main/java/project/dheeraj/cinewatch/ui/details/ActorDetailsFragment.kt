@@ -16,7 +16,7 @@ import project.dheeraj.cinewatch.data.model.Cast
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.FragmentActorDetailsBinding
-import project.dheeraj.cinewatch.ui.main.adapter.BestMoviesRecyclerViewAdapter
+import project.dheeraj.cinewatch.ui.adapter.BestMoviesRecyclerViewAdapter
 import project.dheeraj.cinewatch.utils.CONSTANTS
 import project.dheeraj.cinewatch.utils.showToast
 

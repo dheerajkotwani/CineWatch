@@ -17,8 +17,8 @@ import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.FragmentHomeBinding
-import project.dheeraj.cinewatch.ui.main.adapter.HomeRecyclerViewAdapter
-import project.dheeraj.cinewatch.ui.main.adapter.HomeViewPagerAdapter
+import project.dheeraj.cinewatch.ui.adapter.HomeRecyclerViewAdapter
+import project.dheeraj.cinewatch.ui.adapter.HomeViewPagerAdapter
 import project.dheeraj.cinewatch.utils.showToast
 import java.lang.Math.abs
 
@@ -66,6 +66,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
             page.translationX = -10 * position
             page.scaleY = 1 - (0.25f * abs(position))
         }
+
         binding.homeSearchButton.setOnClickListener(this)
 
         initAdapters()
@@ -185,7 +186,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         when(v!!.id) {
-            R.id.searchFragment -> {
+            R.id.home_search_button -> {
                 navController.navigate(R.id.action_homeFragment_to_searchFragment2)
             }
         }

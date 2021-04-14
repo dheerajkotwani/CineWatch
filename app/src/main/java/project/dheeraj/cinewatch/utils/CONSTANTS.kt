@@ -14,6 +14,7 @@ class CONSTANTS {
         const val cast = "CAST"
         const val movie = "MOVIE"
 
+        const val API_URL = "https://api.themoviedb.org/3/";
         val API_KEY = "2b8a64199789a82f5cff8b0f159e69f8"
         val BaseURL = "https://api.themoviedb.org/3/"
         val ImageBaseURL = "https://image.tmdb.org/t/p/original"
