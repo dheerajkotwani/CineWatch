@@ -5,15 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import coil.load
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.databinding.FragmentHomeViewPagerBinding
-import project.dheeraj.cinewatch.databinding.HomeViewPagerCardBinding
-import project.dheeraj.cinewatch.ui.details.MovieDetailsActivity
 import project.dheeraj.cinewatch.utils.CONSTANTS
-import project.dheeraj.cinewatch.utils.getMoviePlaceHolder
 
 @ExperimentalCoroutinesApi
 class HomeViewPagerFragment(
@@ -39,7 +38,8 @@ class HomeViewPagerFragment(
         binding.viewPagerText.text = movie.title
 
         binding.root.setOnClickListener {
-            MovieDetailsActivity.getStartIntent(requireContext(), movie)
+            val bundle = bundleOf(CONSTANTS.movie to movie)
+            it.findNavController().navigate(R.id.action_homeFragment_to_movieDetailsFragment, bundle)
         }
 
     }

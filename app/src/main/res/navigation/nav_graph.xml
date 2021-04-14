@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="project.dheeraj.cinewatch.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" >
+        tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
@@ -25,7 +25,7 @@
         android:id="@+id/bookmarksFragment"
         android:name="project.dheeraj.cinewatch.ui.bookmarks.BookmarksFragment"
         android:label="bookmarks_fragment"
-        tools:layout="@layout/bookmarks_fragment" >
+        tools:layout="@layout/fragment_bookmark" >
         <action
             android:id="@+id/action_bookmarksFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
@@ -43,7 +43,7 @@
             android:id="@+id/action_movieDetailsFragment_self"
             app:destination="@id/movieDetailsFragment" />
         <argument
-            android:name="movie"
+            android:name="MOVIE"
             app:argType="project.dheeraj.cinewatch.data.model.Movie"/>
     </fragment>
 
@@ -55,12 +55,15 @@
         <action
             android:id="@+id/action_actorDetailsFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <argument
+            android:name="CAST"
+            app:argType="project.dheeraj.cinewatch.data.model.Cast"/>
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="project.dheeraj.cinewatch.ui.search.SearchFragment"
         android:label="search_fragment"
-        tools:layout="@layout/search_fragment" >
+        tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_searchFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />

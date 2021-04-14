@@ -1,8 +1,13 @@
 package project.dheeraj.cinewatch.data.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * Created by Dheeraj Kotwani on 19-03-2021.
  */
+
+@Parcelize
 data class Cast (
     val id: Int,
     val name: String,
@@ -28,5 +33,4 @@ data class Cast (
     val backdrop_path: String,
     val overview: String,
     val poster_path: String
-
-)
+) : Parcelable

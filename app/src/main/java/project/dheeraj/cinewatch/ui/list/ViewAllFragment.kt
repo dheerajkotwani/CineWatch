@@ -24,7 +24,7 @@ class ViewAllFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.view_all_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_view_all, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

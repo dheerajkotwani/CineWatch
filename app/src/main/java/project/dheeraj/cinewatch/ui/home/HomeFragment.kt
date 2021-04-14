@@ -16,7 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
-import project.dheeraj.cinewatch.databinding.HomeFragmentBinding
+import project.dheeraj.cinewatch.databinding.FragmentHomeBinding
 import project.dheeraj.cinewatch.ui.main.adapter.HomeRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.main.adapter.HomeViewPagerAdapter
 import project.dheeraj.cinewatch.utils.showToast
@@ -28,7 +28,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var navController: NavController
 
     private lateinit var viewModel : HomeViewModel
-    private lateinit var binding: HomeFragmentBinding
+    private lateinit var binding: FragmentHomeBinding
 
     private var upcomingMovieList : ArrayList<Movie> = ArrayList()
     private var popularMovieList : ArrayList<Movie> = ArrayList()
@@ -51,8 +51,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.home_fragment, container, false)
-        binding = HomeFragmentBinding.bind(view)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.bind(view)
         return view
     }
 
@@ -96,7 +96,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         viewModel.loadUpcoming().observe(requireActivity(), Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
-                    upcomingSkeleton.showSkeleton()
+                    if (upcomingMovieList.isNullOrEmpty())
+                        upcomingSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
                     upcomingSkeleton.showOriginal()
@@ -113,7 +114,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         viewModel.loadPopular().observe(requireActivity(), Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
-                    popularSkeleton.showSkeleton()
+                    if (popularMovieList.isNullOrEmpty())
+                        popularSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
                     popularSkeleton.showOriginal()
@@ -130,7 +132,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
         viewModel.loadTopRated().observe(requireActivity(), Observer { res ->
             when (res.status) {
                 Status.LOADING -> {
-                    topRatedSkeleton.showSkeleton()
+                    if (topRatedMovieList.isNullOrEmpty())
+                        topRatedSkeleton.showSkeleton()
                 }
                 Status.SUCCESS -> {
                     topRatedSkeleton.showOriginal()
@@ -151,17 +154,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
         viewPagerSkeleton = binding.homeViewPager.applySkeleton(R.layout.fragment_home_view_pager)
 
         upcomingSkeleton = binding.recyclerViewUpcoming.applySkeleton(
-            R.layout.home_movie_card,
+            R.layout.item_movie_home,
             itemCount = 10
         )
 
         popularSkeleton = binding.recyclerViewPopular.applySkeleton(
-            R.layout.home_movie_card,
+            R.layout.item_movie_home,
             itemCount = 10
         )
 
         topRatedSkeleton = binding.recyclerViewTopRated.applySkeleton(
-            R.layout.home_movie_card,
+            R.layout.item_movie_home,
             itemCount = 10
         )
     }
@@ -178,12 +181,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         binding.recyclerViewTopRated.adapter = topRatedAdapter
     }
 
-    private fun setupClickListener() {
-
-
-
-        navController.navigate(R.id.action_homeFragment_to_searchFragment2)
-    }
 
     override fun onClick(v: View?) {
 
