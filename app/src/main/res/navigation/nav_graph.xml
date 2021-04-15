@@ -38,7 +38,7 @@
         android:id="@+id/movieDetailsFragment"
         android:name="project.dheeraj.cinewatch.ui.details.MovieDetailsFragment"
         android:label="movie_details_fragment"
-        tools:layout="@layout/movie_details_fragment" >
+        tools:layout="@layout/fragment_movie_details" >
         <action
             android:id="@+id/action_movieDetailsFragment_to_actorDetailsFragment"
             app:destination="@id/actorDetailsFragment" />
@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_viewAllFragment_to_movieDetailsFragment"
             app:destination="@id/movieDetailsFragment" />
+        <argument
+            android:name="view"
+            android:defaultValue="view"/>
     </fragment>
 
 </navigation>

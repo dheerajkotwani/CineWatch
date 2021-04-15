@@ -16,7 +16,8 @@ import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Cast
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
-import project.dheeraj.cinewatch.databinding.MovieDetailsFragmentBinding
+import project.dheeraj.cinewatch.databinding.FragmentMovieDetailsBinding
+import project.dheeraj.cinewatch.databinding.FragmentMovieDetailsBindingImpl
 import project.dheeraj.cinewatch.ui.dialog.VideoPlayerDialog
 import project.dheeraj.cinewatch.ui.adapter.CastRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.adapter.SimilarMoviesRecyclerViewAdapter
@@ -33,12 +34,10 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
     private lateinit var movie : Movie
 
     private lateinit var viewModel: MovieDetailsViewModel
-    private lateinit var binding : MovieDetailsFragmentBinding
+    private lateinit var binding : FragmentMovieDetailsBinding
 
     private var castList : ArrayList<Cast> = ArrayList()
     private var similarList : ArrayList<Movie> = ArrayList()
-
-    private var videoId = null
 
     private lateinit var castRecyclerViewAdapter : CastRecyclerViewAdapter
     private lateinit var similarRecyclerViewAdapter : SimilarMoviesRecyclerViewAdapter
@@ -50,8 +49,8 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.movie_details_fragment, container, false)
-        binding = MovieDetailsFragmentBinding.bind(view)
+        val view = inflater.inflate(R.layout.fragment_movie_details, container, false)
+        binding = FragmentMovieDetailsBinding.bind(view)
         return view
     }
 

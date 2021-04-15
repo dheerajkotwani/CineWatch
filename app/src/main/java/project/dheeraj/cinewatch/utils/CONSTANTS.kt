@@ -20,12 +20,10 @@ class CONSTANTS {
         val ImageBaseURL = "https://image.tmdb.org/t/p/original"
         val ImageBaseURLw780 = "https://image.tmdb.org/t/p/w780"
         val ImageBaseURLw500 = "https://image.tmdb.org/t/p/w500"
-        val DataBaseName = "FavouritesDB"
 
-        val Attribution = "This product uses the TMDb API but is not endorsed or certified by TMDb."
+        val viewAll = "view"
         val Popular = "Popular"
         val Upcoming = "Upcoming"
-        val Current = "Current"
         val TopRated = "TopRated"
 
         fun getGenreMap(): HashMap<Int, String> {

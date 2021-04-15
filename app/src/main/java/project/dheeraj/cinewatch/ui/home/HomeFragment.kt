@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -19,6 +20,7 @@ import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.FragmentHomeBinding
 import project.dheeraj.cinewatch.ui.adapter.HomeRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.adapter.HomeViewPagerAdapter
+import project.dheeraj.cinewatch.utils.CONSTANTS
 import project.dheeraj.cinewatch.utils.showToast
 import java.lang.Math.abs
 
@@ -68,12 +70,16 @@ class HomeFragment : Fragment(), View.OnClickListener {
         }
 
         binding.homeSearchButton.setOnClickListener(this)
+        binding.textViewAllPopular.setOnClickListener(this)
+        binding.textViewAllTopRated.setOnClickListener(this)
+        binding.textViewAllUpcoming.setOnClickListener(this)
 
         initAdapters()
 
         initSkeletons()
 
         fetchData()
+
 
     }
 
@@ -189,6 +195,19 @@ class HomeFragment : Fragment(), View.OnClickListener {
             R.id.home_search_button -> {
                 navController.navigate(R.id.action_homeFragment_to_searchFragment2)
             }
+            R.id.text_view_all_popular -> {
+                val bundle = bundleOf(CONSTANTS.viewAll to CONSTANTS.Popular)
+                navController.navigate(R.id.action_homeFragment_to_viewAllFragment, bundle)
+            }
+            R.id.text_view_all_top_rated -> {
+                val bundle = bundleOf(CONSTANTS.viewAll to CONSTANTS.TopRated)
+                navController.navigate(R.id.action_homeFragment_to_viewAllFragment, bundle)
+            }
+            R.id.text_view_all_upcoming -> {
+                val bundle = bundleOf(CONSTANTS.viewAll to CONSTANTS.Upcoming)
+                navController.navigate(R.id.action_homeFragment_to_viewAllFragment, bundle)
+            }
+
         }
 
     }

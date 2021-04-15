@@ -47,7 +47,7 @@ class SearchFragment : Fragment() {
         searchAdapter = SearchRecyclerViewAdapter(requireContext(), searchResult)
         binding.searchRecyclerView.adapter = searchAdapter
 
-        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+        binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 performSearch()
                 true

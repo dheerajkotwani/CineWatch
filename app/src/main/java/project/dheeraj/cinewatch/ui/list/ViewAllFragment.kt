@@ -7,9 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
+import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
+import project.dheeraj.cinewatch.databinding.FragmentViewAllBinding
+import project.dheeraj.cinewatch.ui.adapter.SearchRecyclerViewAdapter
+import project.dheeraj.cinewatch.ui.adapter.ViewAllRecyclerViewAdapter
+import project.dheeraj.cinewatch.utils.CONSTANTS
+import project.dheeraj.cinewatch.utils.showToast
 
 @ExperimentalCoroutinesApi
 class ViewAllFragment : Fragment() {
@@ -18,19 +26,38 @@ class ViewAllFragment : Fragment() {
         fun newInstance() = ViewAllFragment()
     }
 
+    private lateinit var binding: FragmentViewAllBinding
     private lateinit var viewModel: ViewAllViewModel
+    private lateinit var movieAdapter: ViewAllRecyclerViewAdapter
+    private lateinit var movieSkeleton: Skeleton
+
+    private var moviesList: ArrayList<Movie> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_view_all, container, false)
+        val view = inflater.inflate(R.layout.fragment_view_all, container, false)
+        binding = FragmentViewAllBinding.bind(view)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ViewAllViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        movieAdapter = ViewAllRecyclerViewAdapter(requireContext(), moviesList)
+        binding.movieRecyclerView.adapter = movieAdapter
+
+        movieSkeleton = binding.movieRecyclerView.applySkeleton(R.layout.item_search, 15)
+
+        val pageType = requireArguments().get(CONSTANTS.viewAll)
+        binding.pageTitle.text = pageType.toString()
+        when(pageType) {
+            CONSTANTS.Upcoming -> fetchUpcoming()
+            CONSTANTS.TopRated -> fetchTopRated()
+            CONSTANTS.Popular -> fetchPopular()
+        }
 
     }
 
@@ -38,9 +65,18 @@ class ViewAllFragment : Fragment() {
         viewModel.fetchPopular().observe(requireActivity(), Observer { res ->
 
             when(res.status) {
-                Status.LOADING -> {}
-                Status.SUCCESS -> {}
-                Status.ERROR -> {}
+                Status.LOADING -> {
+                    movieSkeleton.showSkeleton()
+                }
+                Status.SUCCESS -> {
+                    movieSkeleton.showOriginal()
+                    moviesList.clear()
+                    moviesList.addAll(res.data!!.results)
+                    movieAdapter.notifyDataSetChanged()
+                }
+                Status.ERROR -> {
+                    showToast("Something went wrong!")
+                }
             }
 
         })
@@ -51,9 +87,18 @@ class ViewAllFragment : Fragment() {
         viewModel.fetchTopRated().observe(requireActivity(), Observer { res ->
 
             when(res.status) {
-                Status.LOADING -> {}
-                Status.SUCCESS -> {}
-                Status.ERROR -> {}
+                Status.LOADING -> {
+                    movieSkeleton.showSkeleton()
+                }
+                Status.SUCCESS -> {
+                    movieSkeleton.showOriginal()
+                    moviesList.clear()
+                    moviesList.addAll(res.data!!.results)
+                    movieAdapter.notifyDataSetChanged()
+                }
+                Status.ERROR -> {
+                    showToast("Something went wrong!")
+                }
             }
 
         })
@@ -65,11 +110,19 @@ class ViewAllFragment : Fragment() {
         viewModel.fetchUpcoming().observe(requireActivity(), Observer { res ->
 
             when(res.status) {
-                Status.LOADING -> {}
-                Status.SUCCESS -> {}
-                Status.ERROR -> {}
+                Status.LOADING -> {
+                    movieSkeleton.showSkeleton()
+                }
+                Status.SUCCESS -> {
+                    movieSkeleton.showOriginal()
+                    moviesList.clear()
+                    moviesList.addAll(res.data!!.results)
+                    movieAdapter.notifyDataSetChanged()
+                }
+                Status.ERROR -> {
+                    showToast("Something went wrong!")
+                }
             }
-
         })
 
     }
