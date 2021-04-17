@@ -101,23 +101,21 @@ dependencies {
     // Navigation Components
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-//    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-//    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    // Feature module Support
-//    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 
+    // Paging
+    implementation "androidx.paging:paging-runtime:3.0.0-beta03"
 
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
-
-    // Shimmer Layout
-    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     //Skeleton View
     implementation 'com.faltenreich:skeletonlayout:4.0.0'
 
     // YouTube
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

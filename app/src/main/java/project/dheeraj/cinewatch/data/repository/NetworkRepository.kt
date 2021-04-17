@@ -1,8 +1,13 @@
 package project.dheeraj.cinewatch.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
+import androidx.paging.liveData
 import project.dheeraj.cinewatch.data.api.NetworkService
 import project.dheeraj.cinewatch.data.api.SafeApiRequest
 import project.dheeraj.cinewatch.di.module.ApiModule
+import project.dheeraj.cinewatch.ui.paging.*
 import project.dheeraj.cinewatch.utils.CONSTANTS
 
 /**
@@ -61,5 +66,49 @@ class NetworkRepository : SafeApiRequest() {
     suspend fun searchMovie(query: String, page: Int) = apiRequest {
         networkApi.searchMovie(query, page, CONSTANTS.API_KEY)
     }
+
+    fun getSearchResult(query: String) =
+        Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                maxSize = 500
+            ),
+            pagingSourceFactory = {
+                SearchPagingSource(networkApi, query)
+            }
+        ).liveData
+
+    fun getPopularMovieResult() =
+        Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                maxSize = 500
+            ),
+            pagingSourceFactory = {
+                PopularPagingSource(networkApi)
+            }
+        ).liveData
+
+    fun getUpcomingMovieResult() =
+        Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                maxSize = 500
+            ),
+            pagingSourceFactory = {
+                UpcomingPagingSource(networkApi)
+            }
+        ).liveData
+
+    fun getTopRatedMovieResult() =
+        Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                maxSize = 500
+            ),
+            pagingSourceFactory = {
+                TopRatedPagingSource(networkApi)
+            }
+        ).liveData
 
 }

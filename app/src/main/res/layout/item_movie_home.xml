@@ -21,6 +21,7 @@
         android:id="@+id/movie_image_card"
         android:layout_width="125dp"
         android:layout_height="170dp"
+        android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spacing_start"
         app:cardElevation="0dp"

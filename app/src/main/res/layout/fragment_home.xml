@@ -78,12 +78,16 @@
                 style="@style/TextAppearance.AppCompat.Display1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:padding="4dp"
                 android:text="@string/view_all"
                 android:textSize="14dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toTopOf="@id/text_upcoming"
                 app:layout_constraintBottom_toBottomOf="@id/text_upcoming"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp"
                 tools:ignore="SpUsage" />
 
 
@@ -118,6 +122,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/view_all"
                 android:textSize="14dp"
+                android:padding="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toTopOf="@id/text_popular"
                 app:layout_constraintBottom_toBottomOf="@id/text_popular"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -158,6 +166,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/view_all"
                 android:textSize="14dp"
+                android:padding="4dp"
                 app:layout_constraintTop_toTopOf="@id/text_top_rated"
                 app:layout_constraintBottom_toBottomOf="@id/text_top_rated"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -170,14 +179,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 app:layout_constraintTop_toBottomOf="@id/text_top_rated"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:listitem="@layout/item_movie_home"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                app:layout_constraintTop_toBottomOf="@id/recycler_view_top_rated"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

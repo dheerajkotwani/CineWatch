@@ -37,7 +37,7 @@ class CastRecyclerViewAdapter(
             if (position == 0) {
                 binding.spacingStart.visibility = View.VISIBLE
             }
-            else if (position == castList.size-1) {
+            else if (position == Math.min(20, castList.size)-1) {
                 binding.spacingEnd.visibility = View.VISIBLE
             }
             else {

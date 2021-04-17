@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
@@ -16,6 +17,7 @@ import project.dheeraj.cinewatch.databinding.FragmentHomeBinding
 import project.dheeraj.cinewatch.databinding.FragmentSearchBinding
 import project.dheeraj.cinewatch.ui.adapter.SearchRecyclerViewAdapter
 import project.dheeraj.cinewatch.utils.showToast
+import timber.log.Timber.e
 
 @ExperimentalCoroutinesApi
 class SearchFragment : Fragment() {
@@ -44,18 +46,30 @@ class SearchFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
-        searchAdapter = SearchRecyclerViewAdapter(requireContext(), searchResult)
+        searchAdapter = SearchRecyclerViewAdapter()
         binding.searchRecyclerView.adapter = searchAdapter
+
+        binding.buttonBack.setOnClickListener {
+            it.findNavController().navigateUp()
+        }
 
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                performSearch()
+                getSearchResult()
                 true
             }
             false
         }
 
 
+    }
+
+    fun getSearchResult() {
+        viewModel.getSearchMovie(binding.searchEditText.text.toString())
+            .observe(viewLifecycleOwner, Observer {
+                searchAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+                e(it.toString())
+            })
     }
 
     fun performSearch() {

@@ -15,6 +15,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardElevation="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

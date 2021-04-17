@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -46,7 +47,7 @@ class ViewAllFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ViewAllViewModel::class.java)
 
-        movieAdapter = ViewAllRecyclerViewAdapter(requireContext(), moviesList)
+        movieAdapter = ViewAllRecyclerViewAdapter()
         binding.movieRecyclerView.adapter = movieAdapter
 
         movieSkeleton = binding.movieRecyclerView.applySkeleton(R.layout.item_search, 15)
@@ -59,71 +60,37 @@ class ViewAllFragment : Fragment() {
             CONSTANTS.Popular -> fetchPopular()
         }
 
+        binding.buttonBack.setOnClickListener {
+            binding.root.findNavController().navigateUp()
+        }
+
     }
 
     fun fetchPopular() {
-        viewModel.fetchPopular().observe(requireActivity(), Observer { res ->
+        viewModel.fetchPopular().observe(viewLifecycleOwner) {
 
-            when(res.status) {
-                Status.LOADING -> {
-                    movieSkeleton.showSkeleton()
-                }
-                Status.SUCCESS -> {
-                    movieSkeleton.showOriginal()
-                    moviesList.clear()
-                    moviesList.addAll(res.data!!.results)
-                    movieAdapter.notifyDataSetChanged()
-                }
-                Status.ERROR -> {
-                    showToast("Something went wrong!")
-                }
-            }
+            movieAdapter.submitData(viewLifecycleOwner.lifecycle, it)
 
-        })
+        }
     }
 
     fun fetchTopRated() {
 
-        viewModel.fetchTopRated().observe(requireActivity(), Observer { res ->
+        viewModel.fetchTopRated().observe(viewLifecycleOwner) {
 
-            when(res.status) {
-                Status.LOADING -> {
-                    movieSkeleton.showSkeleton()
-                }
-                Status.SUCCESS -> {
-                    movieSkeleton.showOriginal()
-                    moviesList.clear()
-                    moviesList.addAll(res.data!!.results)
-                    movieAdapter.notifyDataSetChanged()
-                }
-                Status.ERROR -> {
-                    showToast("Something went wrong!")
-                }
-            }
+            movieAdapter.submitData(viewLifecycleOwner.lifecycle, it)
 
-        })
+        }
 
     }
 
     fun fetchUpcoming() {
 
-        viewModel.fetchUpcoming().observe(requireActivity(), Observer { res ->
+        viewModel.fetchUpcoming().observe(viewLifecycleOwner) {
 
-            when(res.status) {
-                Status.LOADING -> {
-                    movieSkeleton.showSkeleton()
-                }
-                Status.SUCCESS -> {
-                    movieSkeleton.showOriginal()
-                    moviesList.clear()
-                    moviesList.addAll(res.data!!.results)
-                    movieAdapter.notifyDataSetChanged()
-                }
-                Status.ERROR -> {
-                    showToast("Something went wrong!")
-                }
-            }
-        })
+            movieAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+
+        }
 
     }
 

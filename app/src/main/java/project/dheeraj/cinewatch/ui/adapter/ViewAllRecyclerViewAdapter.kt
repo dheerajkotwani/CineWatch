@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
@@ -20,37 +23,52 @@ import project.dheeraj.cinewatch.utils.CONSTANTS
  */
 
 @ExperimentalCoroutinesApi
-class ViewAllRecyclerViewAdapter(
-        val context : Context,
-        val movies : ArrayList<Movie>
-) : RecyclerView.Adapter<ViewAllRecyclerViewAdapter.ViewHolder>() {
+class ViewAllRecyclerViewAdapter :
+    PagingDataAdapter<Movie, ViewAllRecyclerViewAdapter.ViewHolder>(MOVIE_COMPARATOR) {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = ItemSearchBinding.bind(itemView)
-    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_search, parent, false))
-    }
+        fun bind(movie: Movie) {
+            binding.apply {
+                Glide.with(itemView)
+                    .load(CONSTANTS.ImageBaseURL + movie.poster_path)
+                    .placeholder(CONSTANTS.moviePlaceHolder[position%4])
+                    .error(CONSTANTS.moviePlaceHolder[position%4])
+                    .into(searchImage)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        with(holder) {
-
-            binding.searchImage.load(CONSTANTS.ImageBaseURL + movies[position].poster_path) {
-                placeholder(CONSTANTS.moviePlaceHolder[position%4])
-                error(CONSTANTS.moviePlaceHolder[position%4])
-            }
-
-            itemView.setOnClickListener {
-                val bundle = bundleOf(CONSTANTS.movie to movies[position])
-                it.findNavController().navigate(R.id.action_viewAllFragment_to_movieDetailsFragment, bundle)
+                itemView.setOnClickListener {
+                    val bundle = bundleOf(CONSTANTS.movie to movie)
+                    it.findNavController().navigate(R.id.action_viewAllFragment_to_movieDetailsFragment, bundle)
+                }
             }
         }
 
     }
 
-    override fun getItemCount() = movies.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_search, parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val currentItem = getItem(position)
+        if (currentItem != null) {
+            holder.bind(currentItem)
+        }
+
+    }
+
+    companion object {
+        private val MOVIE_COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean =
+                oldItem == newItem
+
+        }
+    }
 
 
 }

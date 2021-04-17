@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import coil.load
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -64,11 +65,14 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
         viewModel.movieName.value = movie.title
         viewModel.movie.value = movie
         viewModel.getVideos(movie.id)
+
+        binding.buttonBack.setOnClickListener(this)
         binding.fabPlayButton.setOnClickListener(this)
 
         initAdapters()
 
         loadData()
+
 
     }
 
@@ -176,6 +180,9 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
                 else {
                     showToast("Video not found!")
                 }
+            }
+            R.id.button_back -> {
+                binding.root.findNavController().navigateUp()
             }
         }
 

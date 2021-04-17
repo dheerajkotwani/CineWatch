@@ -2,6 +2,8 @@ package project.dheeraj.cinewatch.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
 import okhttp3.Dispatcher
 import project.dheeraj.cinewatch.data.model.Resource
@@ -23,6 +25,10 @@ class SearchViewModel : ViewModel() {
                 emit(Resource.error("Something went wrong!"))
         }
     }
+
+    fun getSearchMovie(query: String) =
+        networkRepository.getSearchResult(query).cachedIn(viewModelScope)
+
 
 
 }

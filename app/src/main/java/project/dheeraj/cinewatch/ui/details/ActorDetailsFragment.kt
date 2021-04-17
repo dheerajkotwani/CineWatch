@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import coil.load
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
@@ -48,6 +49,9 @@ class ActorDetailsFragment : Fragment() {
         cast = requireArguments().get(CONSTANTS.cast) as Cast
 
         viewModel = ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
+        binding.buttonBack.setOnClickListener {
+            it.findNavController().navigateUp()
+        }
 
         initAdapters()
 
