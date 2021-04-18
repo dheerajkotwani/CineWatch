@@ -6,8 +6,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil.setContentView
+import dagger.hilt.android.AndroidEntryPoint
 import project.dheeraj.cinewatch.R
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     companion object {

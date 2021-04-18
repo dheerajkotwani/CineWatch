@@ -7,13 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.navigation.findNavController
 import coil.load
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import project.dheeraj.cinewatch.R
+import project.dheeraj.cinewatch.data.local.dao.BookmarkDao
 import project.dheeraj.cinewatch.data.model.Cast
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
@@ -24,17 +28,23 @@ import project.dheeraj.cinewatch.ui.adapter.CastRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.adapter.SimilarMoviesRecyclerViewAdapter
 import project.dheeraj.cinewatch.utils.CONSTANTS
 import project.dheeraj.cinewatch.utils.showToast
+import project.dheeraj.cinewatch.utils.toHours
+import timber.log.Timber.e
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class MovieDetailsFragment : Fragment(), View.OnClickListener {
 
-    companion object {
-        fun newInstance() = MovieDetailsFragment()
-    }
+//    companion object {
+//        fun newInstance() = MovieDetailsFragment()
+//    }
 
     private lateinit var movie : Movie
 
-    private lateinit var viewModel: MovieDetailsViewModel
+//    private lateinit var viewModel: MovieDetailsViewModel
+    private val viewModel: MovieDetailsViewModel by viewModels()
     private lateinit var binding : FragmentMovieDetailsBinding
 
     private var castList : ArrayList<Cast> = ArrayList()
@@ -59,7 +69,7 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java).apply {  }
         movie = requireArguments().get(CONSTANTS.movie) as Movie
 
         viewModel.movieName.value = movie.title
@@ -68,11 +78,19 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
 
         binding.buttonBack.setOnClickListener(this)
         binding.fabPlayButton.setOnClickListener(this)
+        binding.buttonBookmark.setOnClickListener(this)
 
         initAdapters()
 
         loadData()
 
+        loadCast()
+
+        loadSimilar()
+
+        checkBookmark()
+
+        viewModel.getMovieDetails(movie.id)
 
     }
 
@@ -91,32 +109,67 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
     private fun loadData() {
 
         viewModel.movie.observe(requireActivity(), Observer {
-            binding.textMovieName.text = it!!.title
-            binding.textRating.text = "${it.vote_average}/10"
-            binding.textReleaseDate.text = it.release_date
-            binding.textDescription.text = it.overview
-
 
             var genre: String = ""
-            for (i in 0..it.genre_ids.size - 1) {
-                genre += CONSTANTS.getGenreMap()[it.genre_ids[i]].toString()
-                if (i != it.genre_ids.size - 1) {
-                    genre += "• "
+//
+            if (!it.genres.isNullOrEmpty())
+                for (i in 0..it.genres.size - 1) {
+                    genre += CONSTANTS.getGenreMap()[it.genres[i].id].toString()
+                    if (i != it.genres.size - 1) {
+                        genre += "• "
+                    }
+                }
+
+            binding.apply {
+                textMovieName.text = it!!.title
+                textRating.text = "${it.vote_average}/10"
+                textReleaseDate.text = it.release_date
+                textDescription.text = it.overview
+                textLength.text = toHours(it.runtime)
+                textGenres.text = genre
+
+                detailsBannerImage.load(CONSTANTS.ImageBaseURL + it.backdrop_path) {
+                    placeholder(CONSTANTS.viewPagerPlaceHolder.random())
+                    error(CONSTANTS.viewPagerPlaceHolder.random())
+                }
+
+                imagePoster.load(CONSTANTS.ImageBaseURL + it.poster_path) {
+                    placeholder(CONSTANTS.moviePlaceHolder.random())
+                    error(CONSTANTS.moviePlaceHolder.random())
                 }
             }
-            binding.textGenres.text = genre
 
-            binding.detailsBannerImage.load(CONSTANTS.ImageBaseURL + it.backdrop_path) {
-                placeholder(CONSTANTS.viewPagerPlaceHolder.random())
-                error(CONSTANTS.viewPagerPlaceHolder.random())
-            }
-            binding.imagePoster.load(CONSTANTS.ImageBaseURL + it.poster_path) {
-                placeholder(CONSTANTS.moviePlaceHolder.random())
-                error(CONSTANTS.moviePlaceHolder.random())
-            }
         })
 
+    }
 
+    private fun loadSimilar() {
+        viewModel.loadSimilar(movie.id).observe(requireActivity(), Observer {
+            when (it.status) {
+                Status.LOADING -> {
+                    if (similarList.isNotEmpty())
+                        similarMovieSkeleton.showSkeleton()
+                }
+                Status.SUCCESS -> {
+                    similarList.clear()
+                    similarList.addAll(it.data!!.results)
+                    similarRecyclerViewAdapter.notifyDataSetChanged()
+                    similarMovieSkeleton.showOriginal()
+
+                    if (similarList.isNullOrEmpty()) {
+                        binding.headingRelated.visibility = View.GONE
+                    } else {
+                        binding.headingRelated.visibility = View.VISIBLE
+                    }
+                }
+                Status.ERROR -> {
+                    showToast("Something went wrong!")
+                }
+            }
+        })
+    }
+
+    private fun loadCast() {
         viewModel.loadCast(movie.id).observe(requireActivity(), Observer {
             when (it.status) {
                 Status.LOADING -> {
@@ -131,8 +184,7 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
 
                     if (castList.isNullOrEmpty()) {
                         binding.headingCast.visibility = View.GONE
-                    }
-                    else {
+                    } else {
                         binding.headingCast.visibility = View.VISIBLE
                     }
 
@@ -142,31 +194,23 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
                 }
             }
         })
+    }
 
-        viewModel.loadSimilar(movie.id).observe(requireActivity(), Observer {
-            when (it.status) {
-                Status.LOADING -> {
-                    if(similarList.isNotEmpty())
-                        similarMovieSkeleton.showSkeleton()
-                }
-                Status.SUCCESS -> {
-                    similarList.clear()
-                    similarList.addAll(it.data!!.results)
-                    similarRecyclerViewAdapter.notifyDataSetChanged()
-                    similarMovieSkeleton.showOriginal()
+    fun checkBookmark() {
 
-                    if (similarList.isNullOrEmpty()) {
-                        binding.headingRelated.visibility = View.GONE
-                    }
-                    else {
-                        binding.headingRelated.visibility = View.VISIBLE
-                    }
+        viewModel.bookmark.observe(viewLifecycleOwner, Observer {
+            binding.apply {
+                if (it) {
+                    buttonBookmark.setImageResource(R.drawable.ic_bookmark_done)
                 }
-                Status.ERROR -> {
-                    showToast("Something went wrong!")
+                else {
+                    buttonBookmark.setImageResource(R.drawable.ic_bookmark)
                 }
             }
         })
+
+        viewModel.checkBookmarkExist()
+
     }
 
     override fun onClick(v: View?) {
@@ -183,6 +227,10 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
             }
             R.id.button_back -> {
                 binding.root.findNavController().navigateUp()
+            }
+            R.id.button_bookmark -> {
+                viewModel.bookmarkMovie()
+                viewModel.checkBookmarkExist()
             }
         }
 

@@ -17,6 +17,11 @@ class NetworkRepository : SafeApiRequest() {
 
     private val networkApi = ApiModule().invoke()
 
+    // Get Movie Details
+    suspend fun getMovieDetails(movie_id : Int) = apiRequest {
+        networkApi.getMovieById(movie_id, CONSTANTS.API_KEY)
+    }
+
     // Now Playing Movies
     suspend fun getNowPlayingMovie() = apiRequest {
         networkApi.getNowPlayingMovies(CONSTANTS.API_KEY)

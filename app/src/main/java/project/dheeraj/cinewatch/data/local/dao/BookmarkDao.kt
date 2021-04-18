@@ -1,9 +1,9 @@
 package project.dheeraj.cinewatch.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.MovieDB
 import project.dheeraj.cinewatch.utils.CONSTANTS
@@ -26,9 +26,28 @@ interface BookmarkDao {
     suspend fun insertMovie(Movie: MovieDB)
 
     /**
+     * Delete movie from Database
+     */
+    @Delete
+    suspend fun removeMovie(movie: MovieDB)
+
+    /**
      * Delete [Movie] by [Movie.id]
      */
-    @Query("Delete from ${CONSTANTS.TABLE_NAME} where id=:id")
-    fun deleteMovieById(id : Int)
+    @Query("Delete from ${TABLE_NAME} where id=:id")
+    suspend fun deleteMovieById(id : Int)
+
+    /**
+     * Fetch all movies
+     */
+    @Query("Select * from ${TABLE_NAME}")
+    fun getAllBookmark() : Flow<List<MovieDB>>
+
+    /**
+     * Check movie exist in DB
+     */
+    @Query("SELECT EXISTS (SELECT 1 FROM $TABLE_NAME WHERE id = :id)")
+    fun bookmarkExist(id: Int): Boolean
+
 
 }

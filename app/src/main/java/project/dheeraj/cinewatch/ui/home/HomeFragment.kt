@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
@@ -25,6 +26,7 @@ import project.dheeraj.cinewatch.utils.showToast
 import java.lang.Math.abs
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class HomeFragment : Fragment(), View.OnClickListener {
 
     private lateinit var navController: NavController
