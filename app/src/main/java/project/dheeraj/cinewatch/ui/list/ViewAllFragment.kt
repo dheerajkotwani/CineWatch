@@ -6,29 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
 import project.dheeraj.cinewatch.data.model.Status
 import project.dheeraj.cinewatch.databinding.FragmentViewAllBinding
+import project.dheeraj.cinewatch.ui.adapter.BookmarkRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.adapter.SearchRecyclerViewAdapter
 import project.dheeraj.cinewatch.ui.adapter.ViewAllRecyclerViewAdapter
 import project.dheeraj.cinewatch.utils.CONSTANTS
 import project.dheeraj.cinewatch.utils.showToast
+import timber.log.Timber.e
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ViewAllFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ViewAllFragment()
-    }
-
     private lateinit var binding: FragmentViewAllBinding
-    private lateinit var viewModel: ViewAllViewModel
+    private val viewModel: ViewAllViewModel by viewModels()
+//    private lateinit var viewModel: ViewAllViewModel
     private lateinit var movieAdapter: ViewAllRecyclerViewAdapter
     private lateinit var movieSkeleton: Skeleton
 
@@ -45,7 +47,7 @@ class ViewAllFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ViewAllViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(ViewAllViewModel::class.java)
 
         movieAdapter = ViewAllRecyclerViewAdapter()
         binding.movieRecyclerView.adapter = movieAdapter
@@ -58,11 +60,24 @@ class ViewAllFragment : Fragment() {
             CONSTANTS.Upcoming -> fetchUpcoming()
             CONSTANTS.TopRated -> fetchTopRated()
             CONSTANTS.Popular -> fetchPopular()
+            CONSTANTS.Bookmarks -> fetchBookmarks()
         }
 
         binding.buttonBack.setOnClickListener {
             binding.root.findNavController().navigateUp()
         }
+
+    }
+
+    fun fetchBookmarks() {
+
+        viewModel.bookmarks.observe(viewLifecycleOwner) {
+            if (it != null) {
+                binding.movieRecyclerView.adapter = BookmarkRecyclerViewAdapter(it)
+            }
+        }
+
+        viewModel.fetchBookmarks()
 
     }
 

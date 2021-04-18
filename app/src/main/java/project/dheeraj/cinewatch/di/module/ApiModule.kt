@@ -21,13 +21,11 @@ class ApiModule {
     @Provides
     @Singleton
     operator fun invoke() : NetworkService {
-
         return Retrofit.Builder()
                 .baseUrl(CONSTANTS.BaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(NetworkService::class.java)
-
     }
 
 

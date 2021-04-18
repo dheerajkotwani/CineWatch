@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -31,7 +32,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private lateinit var navController: NavController
 
-    private lateinit var viewModel : HomeViewModel
+    private val viewModel : HomeViewModel by viewModels()
+//    private lateinit var viewModel : HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
     private var upcomingMovieList : ArrayList<Movie> = ArrayList()
@@ -65,13 +67,14 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
 
         navController = Navigation.findNavController(binding.root)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.homeViewPager.setPageTransformer { page, position ->
             page.translationX = -10 * position
             page.scaleY = 1 - (0.25f * abs(position))
         }
 
         binding.homeSearchButton.setOnClickListener(this)
+        binding.bookmarks.setOnClickListener(this)
         binding.textViewAllPopular.setOnClickListener(this)
         binding.textViewAllTopRated.setOnClickListener(this)
         binding.textViewAllUpcoming.setOnClickListener(this)
@@ -81,7 +84,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         initSkeletons()
 
         fetchData()
-
 
     }
 
@@ -207,6 +209,10 @@ class HomeFragment : Fragment(), View.OnClickListener {
             }
             R.id.text_view_all_upcoming -> {
                 val bundle = bundleOf(CONSTANTS.viewAll to CONSTANTS.Upcoming)
+                navController.navigate(R.id.action_homeFragment_to_viewAllFragment, bundle)
+            }
+            R.id.bookmarks -> {
+                val bundle = bundleOf(CONSTANTS.viewAll to CONSTANTS.Bookmarks)
                 navController.navigate(R.id.action_homeFragment_to_viewAllFragment, bundle)
             }
 

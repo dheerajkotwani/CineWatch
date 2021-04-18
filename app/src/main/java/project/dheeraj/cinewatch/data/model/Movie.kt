@@ -15,18 +15,18 @@ import project.dheeraj.cinewatch.utils.CONSTANTS.Companion.TABLE_NAME
 @Parcelize
 data class Movie (
         val id: Int,
-        val vote_count: Int,
-        val runtime: Int,
-        val poster_path: String,
-        val overview: String,
-        val release_date: String,
-        val title: String,
-        val backdrop_path: String,
-        val popularity: Number,
-        val vote_average: Number,
-        val genre_ids: List<Int>,
-        val genre_names: List<String>,
-        val genres: @RawValue List<Genre>,
-        val video : Boolean,
-        val videos: @RawValue Video
+        val vote_count: Int ?= null,
+        val runtime: Int ?= null,
+        val poster_path: String ?= null,
+        val overview: String ?= null,
+        val release_date: String ?= null,
+        val title: String ?= null,
+        val backdrop_path: String ?= null,
+        val popularity: Number ?= null,
+        val vote_average: Number ?= null,
+        val genre_ids: List<Int> ?= null,
+        val genre_names: List<String> ?= null,
+        val genres: @RawValue List<Genre> ?= null,
+        val video : Boolean ?= null,
+        val videos: @RawValue Video ?= null
 ) : Parcelable

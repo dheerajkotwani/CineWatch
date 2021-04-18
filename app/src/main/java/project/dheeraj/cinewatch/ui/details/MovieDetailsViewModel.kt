@@ -14,10 +14,11 @@ import java.net.SocketTimeoutException
 
 @ExperimentalCoroutinesApi
 class MovieDetailsViewModel @ViewModelInject constructor(
-        private val databaseDao : BookmarkDao
+        private val databaseDao : BookmarkDao,
+        private val networkRepository: NetworkRepository
 ) : ViewModel() {
 
-    private val repository = NetworkRepository()
+//    private val networkRepository = NetworkRepository()
 //    val db = DatabaseModule().provideDatabase(application)
 //    val dbRepository = DatabaseModule().provideBookmarkDao(db)
 
@@ -32,7 +33,7 @@ class MovieDetailsViewModel @ViewModelInject constructor(
 
     fun getMovieDetails(movie_id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val apiResponse = repository.getMovieDetails(movie_id)
+            val apiResponse = networkRepository.getMovieDetails(movie_id)
             movie.postValue(apiResponse)
         }
     }
@@ -41,7 +42,7 @@ class MovieDetailsViewModel @ViewModelInject constructor(
         emit(Resource.loading())
         try {
             // Fetch data from remote
-            val apiResponse = repository.getMovieCredits(movie_id)
+            val apiResponse = networkRepository.getMovieCredits(movie_id)
             emit(Resource.success(apiResponse))
         } catch (e: Exception) {
             if (e is SocketTimeoutException)
@@ -53,7 +54,7 @@ class MovieDetailsViewModel @ViewModelInject constructor(
         emit(Resource.loading())
         try {
             // Fetch data from remote
-            val apiResponse = repository.getSimilarMovies(movie_id)
+            val apiResponse = networkRepository.getSimilarMovies(movie_id)
             emit(Resource.success(apiResponse))
         } catch (e: Exception) {
             if (e is SocketTimeoutException)
@@ -64,7 +65,7 @@ class MovieDetailsViewModel @ViewModelInject constructor(
     fun getVideos(movie_id : Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val apiResponse = repository.getVideos(movie_id)
+                val apiResponse = networkRepository.getVideos(movie_id)
                 videos.postValue(apiResponse)
             } catch (e: Exception) {
                 e(e)
@@ -75,7 +76,7 @@ class MovieDetailsViewModel @ViewModelInject constructor(
 
     fun bookmarkMovie() {
         movie.value!!.apply {
-            val movieDb = MovieDB(id, poster_path, overview, title, backdrop_path)
+            val movieDb = MovieDB(id, poster_path!!, overview!!, title!!, backdrop_path!!)
             viewModelScope.launch(Dispatchers.IO) {
                 if (bookmark.value == true) {
                     databaseDao.removeMovie(movieDb)

@@ -1,5 +1,6 @@
 package project.dheeraj.cinewatch.ui.home
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
@@ -8,11 +9,14 @@ import project.dheeraj.cinewatch.data.model.Resource
 import project.dheeraj.cinewatch.data.repository.NetworkRepository
 import timber.log.Timber
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class HomeViewModel : ViewModel() {
-
-    private val repository = NetworkRepository()
+class HomeViewModel @ViewModelInject constructor(
+    private val repository : NetworkRepository
+) : ViewModel() {
+//
+//    private val repository = NetworkRepository()
 
     fun loadNowPlaying() = liveData(Dispatchers.IO) {
         emit(Resource.loading())

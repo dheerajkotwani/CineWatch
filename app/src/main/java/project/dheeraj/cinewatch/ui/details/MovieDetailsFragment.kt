@@ -125,7 +125,8 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
                 textRating.text = "${it.vote_average}/10"
                 textReleaseDate.text = it.release_date
                 textDescription.text = it.overview
-                textLength.text = toHours(it.runtime)
+                if (it.runtime != null)
+                    textLength.text = toHours(it.runtime!!)
                 textGenres.text = genre
 
                 detailsBannerImage.load(CONSTANTS.ImageBaseURL + it.backdrop_path) {

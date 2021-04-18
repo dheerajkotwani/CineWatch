@@ -1,5 +1,6 @@
 package project.dheeraj.cinewatch.ui.search
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
@@ -9,15 +10,19 @@ import okhttp3.Dispatcher
 import project.dheeraj.cinewatch.data.model.Resource
 import project.dheeraj.cinewatch.data.repository.NetworkRepository
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel @ViewModelInject constructor(
+    private val networkRepository: NetworkRepository
+) : ViewModel() {
     // TODO: Implement the ViewModel
-    val networkRepository = NetworkRepository()
+//    val networkRepository = NetworkRepository()
 
-    fun searchMovie(query: String, page: Int = 1) = liveData(Dispatchers.IO) {
+    fun searchMovie(query: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {
-            val apiResponse =  networkRepository.searchMovie(query, page)
+            val apiResponse =
+                networkRepository.getSearchResult(query).cachedIn(viewModelScope)
             emit(Resource.success(apiResponse))
         }
         catch (e: Exception) {

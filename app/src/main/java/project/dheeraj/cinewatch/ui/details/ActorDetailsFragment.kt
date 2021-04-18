@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import coil.load
 import com.faltenreich.skeletonlayout.Skeleton
 import com.faltenreich.skeletonlayout.applySkeleton
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Cast
@@ -22,11 +24,13 @@ import project.dheeraj.cinewatch.utils.CONSTANTS
 import project.dheeraj.cinewatch.utils.showToast
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ActorDetailsFragment : Fragment() {
 
-    private lateinit var binding : FragmentActorDetailsBinding
-    private lateinit var viewModel : ActorDetailsViewModel
+    private val viewModel : ActorDetailsViewModel by viewModels()
+//    private lateinit var viewModel : ActorDetailsViewModel
 
+    private lateinit var binding : FragmentActorDetailsBinding
     private lateinit var cast : Cast
 
     private var movieCredits : ArrayList<Movie> = ArrayList()
@@ -48,7 +52,7 @@ class ActorDetailsFragment : Fragment() {
 
         cast = requireArguments().get(CONSTANTS.cast) as Cast
 
-        viewModel = ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
+//        viewModel = ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
         binding.buttonBack.setOnClickListener {
             it.findNavController().navigateUp()
         }

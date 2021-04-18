@@ -1,18 +1,22 @@
 package project.dheeraj.cinewatch.ui.details
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import kotlinx.coroutines.Dispatchers
 import project.dheeraj.cinewatch.data.model.Resource
 import project.dheeraj.cinewatch.data.repository.NetworkRepository
 import java.net.SocketTimeoutException
+import javax.inject.Inject
 
 /**
  * Created by Dheeraj Kotwani on 28-03-2021.
  */
-class ActorDetailsViewModel : ViewModel() {
+class ActorDetailsViewModel @ViewModelInject constructor(
+    private val repository : NetworkRepository
+): ViewModel() {
 
-    private val repository = NetworkRepository()
+//    private val repository = NetworkRepository()
 
     fun getPerson(person_id : Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading())

@@ -40,8 +40,8 @@ interface BookmarkDao {
     /**
      * Fetch all movies
      */
-    @Query("Select * from ${TABLE_NAME}")
-    fun getAllBookmark() : Flow<List<MovieDB>>
+    @Query("Select * from $TABLE_NAME")
+    fun getAllBookmark() : List<MovieDB>
 
     /**
      * Check movie exist in DB

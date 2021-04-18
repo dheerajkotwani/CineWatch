@@ -9,13 +9,16 @@ import project.dheeraj.cinewatch.data.api.SafeApiRequest
 import project.dheeraj.cinewatch.di.module.ApiModule
 import project.dheeraj.cinewatch.ui.paging.*
 import project.dheeraj.cinewatch.utils.CONSTANTS
+import javax.inject.Inject
 
 /**
  * Created by Dheeraj Kotwani on 21-03-2021.
  */
-class NetworkRepository : SafeApiRequest() {
+class NetworkRepository @Inject constructor(
+    private val networkApi: NetworkService
+) : SafeApiRequest() {
 
-    private val networkApi = ApiModule().invoke()
+//    private val networkApi = ApiModule().invoke()
 
     // Get Movie Details
     suspend fun getMovieDetails(movie_id : Int) = apiRequest {

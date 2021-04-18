@@ -25,6 +25,7 @@ class CONSTANTS {
         val Popular = "Popular"
         val Upcoming = "Upcoming"
         val TopRated = "TopRated"
+        val Bookmarks = "Bookmarks"
 
         fun getGenreMap(): HashMap<Int, String> {
             val genreMap = HashMap<Int, String>()
