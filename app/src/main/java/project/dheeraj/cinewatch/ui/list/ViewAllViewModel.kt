@@ -25,7 +25,6 @@ class ViewAllViewModel @ViewModelInject constructor(
     private val repository : NetworkRepository
 ) : ViewModel() {
 
-//    private val repository = NetworkRepository()
     private val _bookmarks = MutableLiveData<List<MovieDB>>()
 
     var bookmarks : MutableLiveData<List<MovieDB>> = _bookmarks

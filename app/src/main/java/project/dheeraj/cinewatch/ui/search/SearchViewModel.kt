@@ -15,8 +15,6 @@ import javax.inject.Inject
 class SearchViewModel @ViewModelInject constructor(
     private val networkRepository: NetworkRepository
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
-//    val networkRepository = NetworkRepository()
 
     fun searchMovie(query: String) = liveData(Dispatchers.IO) {
         emit(Resource.loading())

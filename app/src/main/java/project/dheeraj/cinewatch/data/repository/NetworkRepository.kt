@@ -18,8 +18,6 @@ class NetworkRepository @Inject constructor(
     private val networkApi: NetworkService
 ) : SafeApiRequest() {
 
-//    private val networkApi = ApiModule().invoke()
-
     // Get Movie Details
     suspend fun getMovieDetails(movie_id : Int) = apiRequest {
         networkApi.getMovieById(movie_id, CONSTANTS.API_KEY)

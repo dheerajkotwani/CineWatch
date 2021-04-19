@@ -16,8 +16,6 @@ class ActorDetailsViewModel @ViewModelInject constructor(
     private val repository : NetworkRepository
 ): ViewModel() {
 
-//    private val repository = NetworkRepository()
-
     fun getPerson(person_id : Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading())
         try {

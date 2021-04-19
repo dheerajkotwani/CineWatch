@@ -30,7 +30,7 @@ class ViewAllFragment : Fragment() {
 
     private lateinit var binding: FragmentViewAllBinding
     private val viewModel: ViewAllViewModel by viewModels()
-//    private lateinit var viewModel: ViewAllViewModel
+
     private lateinit var movieAdapter: ViewAllRecyclerViewAdapter
     private lateinit var movieSkeleton: Skeleton
 
@@ -47,7 +47,6 @@ class ViewAllFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(ViewAllViewModel::class.java)
 
         movieAdapter = ViewAllRecyclerViewAdapter()
         binding.movieRecyclerView.adapter = movieAdapter

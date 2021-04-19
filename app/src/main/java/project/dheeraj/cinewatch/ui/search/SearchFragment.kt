@@ -13,6 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.dheeraj.cinewatch.R
 import project.dheeraj.cinewatch.data.model.Movie
@@ -24,14 +25,10 @@ import project.dheeraj.cinewatch.utils.showToast
 import timber.log.Timber.e
 
 @ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = SearchFragment()
-    }
-
     private val viewModel: SearchViewModel by viewModels()
-//    private lateinit var viewModel: SearchViewModel
     private lateinit var binding: FragmentSearchBinding
 
     private lateinit var searchAdapter: SearchRecyclerViewAdapter
@@ -50,7 +47,6 @@ class SearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         searchAdapter = SearchRecyclerViewAdapter()
         binding.searchRecyclerView.adapter = searchAdapter
 

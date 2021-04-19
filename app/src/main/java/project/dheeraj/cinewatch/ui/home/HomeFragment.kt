@@ -33,7 +33,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
     private lateinit var navController: NavController
 
     private val viewModel : HomeViewModel by viewModels()
-//    private lateinit var viewModel : HomeViewModel
     private lateinit var binding: FragmentHomeBinding
 
     private var upcomingMovieList : ArrayList<Movie> = ArrayList()
@@ -67,7 +66,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onActivityCreated(savedInstanceState)
 
         navController = Navigation.findNavController(binding.root)
-//        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.homeViewPager.setPageTransformer { page, position ->
             page.translationX = -10 * position
             page.scaleY = 1 - (0.25f * abs(position))

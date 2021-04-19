@@ -37,13 +37,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment(), View.OnClickListener {
 
-//    companion object {
-//        fun newInstance() = MovieDetailsFragment()
-//    }
-
     private lateinit var movie : Movie
 
-//    private lateinit var viewModel: MovieDetailsViewModel
     private val viewModel: MovieDetailsViewModel by viewModels()
     private lateinit var binding : FragmentMovieDetailsBinding
 
@@ -69,7 +64,6 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-//        viewModel = ViewModelProvider(this).get(MovieDetailsViewModel::class.java).apply {  }
         movie = requireArguments().get(CONSTANTS.movie) as Movie
 
         viewModel.movieName.value = movie.title
@@ -111,7 +105,6 @@ class MovieDetailsFragment : Fragment(), View.OnClickListener {
         viewModel.movie.observe(requireActivity(), Observer {
 
             var genre: String = ""
-//
             if (!it.genres.isNullOrEmpty())
                 for (i in 0..it.genres.size - 1) {
                     genre += CONSTANTS.getGenreMap()[it.genres[i].id].toString()

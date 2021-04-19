@@ -15,8 +15,6 @@ import javax.inject.Inject
 class HomeViewModel @ViewModelInject constructor(
     private val repository : NetworkRepository
 ) : ViewModel() {
-//
-//    private val repository = NetworkRepository()
 
     fun loadNowPlaying() = liveData(Dispatchers.IO) {
         emit(Resource.loading())

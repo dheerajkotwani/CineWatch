@@ -28,7 +28,6 @@ import project.dheeraj.cinewatch.utils.showToast
 class ActorDetailsFragment : Fragment() {
 
     private val viewModel : ActorDetailsViewModel by viewModels()
-//    private lateinit var viewModel : ActorDetailsViewModel
 
     private lateinit var binding : FragmentActorDetailsBinding
     private lateinit var cast : Cast
@@ -52,7 +51,6 @@ class ActorDetailsFragment : Fragment() {
 
         cast = requireArguments().get(CONSTANTS.cast) as Cast
 
-//        viewModel = ViewModelProvider(this).get(ActorDetailsViewModel::class.java)
         binding.buttonBack.setOnClickListener {
             it.findNavController().navigateUp()
         }

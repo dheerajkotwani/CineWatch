@@ -18,10 +18,6 @@ class MovieDetailsViewModel @ViewModelInject constructor(
         private val networkRepository: NetworkRepository
 ) : ViewModel() {
 
-//    private val networkRepository = NetworkRepository()
-//    val db = DatabaseModule().provideDatabase(application)
-//    val dbRepository = DatabaseModule().provideBookmarkDao(db)
-
     private val _name = MutableLiveData("Movie Name")
     private val _movie = MutableLiveData<Movie>()
     private val _videos = MutableLiveData<VideoResponse>()
