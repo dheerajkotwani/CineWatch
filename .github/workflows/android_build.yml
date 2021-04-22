@@ -21,9 +21,5 @@ jobs:
         java-version: 1.8
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    - name: Test
-      run: ./gradlew text
-    - name: Assemble
+    - name: Assemble Build
       run: ./gradlew assemble
-    - name: Build
-      run: ./gradlew build
