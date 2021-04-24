@@ -23,7 +23,8 @@ jobs:
       run: chmod +x gradlew
     - name: Assemble Build
       run: ./gradlew assemble
- apk:
+      
+  apk:
     name: Generate APK
     runs-on: ubuntu-18.04
 
