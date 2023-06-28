@@ -11,7 +11,6 @@ import javax.inject.Singleton
 /**
  * Created by Dheeraj Kotwani on 14-04-2021.
  */
-
 @Module
 @InstallIn(ApplicationComponent::class)
 class DatabaseModule {
