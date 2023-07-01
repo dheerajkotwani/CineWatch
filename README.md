@@ -12,6 +12,8 @@ A minimalistic movie listing app to browse movies using TMDB Api, built to demon
 ![Maximum API Level](https://img.shields.io/badge/Max%20API%20Level-30-orange)
 ![GitHub repo size](https://img.shields.io/github/repo-size/dheerajkotwani/CineWatch)
 
+<a href='https://play.google.com/store/apps/details?id=project.dheeraj.cinewatch'><img align='center' height='85' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'></a>
+
 ## Features 🚀
 
 - Explore the Upcoming, Popular and Top Rated Movies.
@@ -38,7 +40,7 @@ A minimalistic movie listing app to browse movies using TMDB Api, built to demon
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 
 ## Download 📥
-- Download latest APK from [here](https://github.com/dheerajkotwani/CineWatch/releases/download/refs%2Fheads%2Fmaster/app.apk)
+- Download the latest APK build from [here](https://github.com/dheerajkotwani/CineWatch/releases/download/refs%2Fheads%2Fmaster/app.apk)
 
 ## Screenshots 📷 
 ![light_screenshot](Assets/screen_shot1.png)
